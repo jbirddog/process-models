@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="Process_sypm122" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1jxxr3o</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1jxxr3o" sourceRef="StartEvent_1" targetRef="Activity_0uyx9zu" />
+    <bpmn:serviceTask id="Activity_0uyx9zu" name="Get Countries">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="http/GetRequest" resultVariable="countries_list">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="basic_auth_password" type="str" value="None" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" value="None" />
+            <spiffworkflow:parameter id="headers" type="any" value="{}" />
+            <spiffworkflow:parameter id="params" type="any" value="{}" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;https://countriesnow.space/api/v0.1/countries/capital&#34;" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1jxxr3o</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pm7q65</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1vdcski">
+      <bpmn:incoming>Flow_0w7qf95</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0pm7q65" sourceRef="Activity_0uyx9zu" targetRef="Activity_1nlj3tu" />
+    <bpmn:sequenceFlow id="Flow_1jkcapv" sourceRef="Activity_1nlj3tu" targetRef="Activity_1tccbut" />
+    <bpmn:scriptTask id="Activity_1nlj3tu" name="Just Country Names">
+      <bpmn:extensionElements>
+        <spiffworkflow:unitTests>
+          <spiffworkflow:unitTest id="ScriptUnitTest_001d73t">
+            <spiffworkflow:inputJson>{
+  "countries_list": {
+    "data": [
+      {
+        "dialCode": "880",
+        "name": "Bangladesh",
+        "unicodeFlag": "🇧🇩"
+      },
+      {
+        "dialCode": "32",
+        "name": "Belgium",
+        "unicodeFlag": "🇧🇪"
+      },
+      {
+        "dialCode": "226",
+        "name": "Burkina Faso",
+        "unicodeFlag": "🇧🇫"
+      }
+    ],
+    "error": false,
+    "msg": "countries details: 'unicodeFlag,dialCode' have been retrieved"
+  }
+}</spiffworkflow:inputJson>
+            <spiffworkflow:expectedOutputJson>{
+  "countries_list": {
+    "data": [
+      {
+        "dialCode": "880",
+        "name": "Bangladesh",
+        "unicodeFlag": "🇧🇩"
+      },
+      {
+        "dialCode": "32",
+        "name": "Belgium",
+        "unicodeFlag": "🇧🇪"
+      },
+      {
+        "dialCode": "226",
+        "name": "Burkina Faso",
+        "unicodeFlag": "🇧🇫"
+      }
+    ],
+    "error": false,
+    "msg": "countries details: 'unicodeFlag,dialCode' have been retrieved"
+  },
+  "countries": [
+      "Bangladesh",
+      "Belgium",
+      "Burkina Faso"
+  ]
+}</spiffworkflow:expectedOutputJson>
+          </spiffworkflow:unitTest>
+          <spiffworkflow:unitTest id="ScriptUnitTest_0k12ysg">
+            <spiffworkflow:inputJson>{
+    "countries_list": {
+        "error": true,
+        "msg": "you must specify data to fetch e.g ?returns=unicodeFlag,currency,image"
+    }
+}</spiffworkflow:inputJson>
+            <spiffworkflow:expectedOutputJson>{
+  "countries_list": {
+    "error": true,
+    "msg": "you must specify data to fetch e.g ?returns=unicodeFlag,currency,image"
+  },
+  "countries": []
+}</spiffworkflow:expectedOutputJson>
+          </spiffworkflow:unitTest>
+        </spiffworkflow:unitTests>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0pm7q65</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jkcapv</bpmn:outgoing>
+      <bpmn:script># if the api returns an error we return an empty list
+countries_data = countries_list.get("data", [])
+number_of_countries = len(countries_data)
+countries = sorted([d["name"] for d in countries_data])
+del countries_data</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_16ese23" sourceRef="Activity_1tccbut" targetRef="Activity_09g2tjz" />
+    <bpmn:serviceTask id="Activity_1tccbut" name="Cities in a Country">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="http/PostRequest" resultVariable="cities_in_a_country">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="basic_auth_password" type="str" value="None" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" value="None" />
+            <spiffworkflow:parameter id="data" type="any" value="{&#34;country&#34;: &#34;United Arab Emirates&#34;}" />
+            <spiffworkflow:parameter id="headers" type="any" value="{}" />
+            <spiffworkflow:parameter id="url" type="str" value="&#34;https://countriesnow.space/api/v0.1/countries/cities&#34;" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1jkcapv</bpmn:incoming>
+      <bpmn:outgoing>Flow_16ese23</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0w7qf95" sourceRef="Activity_09g2tjz" targetRef="Event_1vdcski" />
+    <bpmn:scriptTask id="Activity_09g2tjz" name="Just City Names">
+      <bpmn:extensionElements>
+        <spiffworkflow:unitTests>
+          <spiffworkflow:unitTest id="ScriptUnitTest_0cvsc3s">
+            <spiffworkflow:inputJson>{
+  "cities_in_a_country": {
+    "data": [
+      "Aba",
+      "Abakaliki",
+      "Abeokuta"
+    ]
+  }
+}</spiffworkflow:inputJson>
+            <spiffworkflow:expectedOutputJson>{
+  "cities_in_a_country": {
+    "data": [
+      "Aba",
+      "Abakaliki",
+      "Abeokuta"
+    ]
+  },
+  "cities": [
+      "Aba",
+      "Abakaliki",
+      "Abeokuta"
+  ]
+}</spiffworkflow:expectedOutputJson>
+          </spiffworkflow:unitTest>
+          <spiffworkflow:unitTest id="ScriptUnitTest_1a2dg9d">
+            <spiffworkflow:inputJson>{}</spiffworkflow:inputJson>
+            <spiffworkflow:expectedOutputJson>{}</spiffworkflow:expectedOutputJson>
+          </spiffworkflow:unitTest>
+        </spiffworkflow:unitTests>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_16ese23</bpmn:incoming>
+      <bpmn:outgoing>Flow_0w7qf95</bpmn:outgoing>
+      <bpmn:script># if the api returns an error we return an empty list
+cities = sorted(cities_in_a_country.get("data", []))</bpmn:script>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_sypm122">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09xoi1h_di" bpmnElement="Activity_0uyx9zu">
+        <dc:Bounds x="250" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1vdcski_di" bpmnElement="Event_1vdcski">
+        <dc:Bounds x="882" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zry70m_di" bpmnElement="Activity_1nlj3tu">
+        <dc:Bounds x="390" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0s26kn1_di" bpmnElement="Activity_1tccbut">
+        <dc:Bounds x="520" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07axbbj_di" bpmnElement="Activity_09g2tjz">
+        <dc:Bounds x="640" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1jxxr3o_di" bpmnElement="Flow_1jxxr3o">
+        <di:waypoint x="215" y="177" />
+        <di:waypoint x="250" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pm7q65_di" bpmnElement="Flow_0pm7q65">
+        <di:waypoint x="350" y="177" />
+        <di:waypoint x="390" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jkcapv_di" bpmnElement="Flow_1jkcapv">
+        <di:waypoint x="490" y="177" />
+        <di:waypoint x="520" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16ese23_di" bpmnElement="Flow_16ese23">
+        <di:waypoint x="620" y="177" />
+        <di:waypoint x="640" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0w7qf95_di" bpmnElement="Flow_0w7qf95">
+        <di:waypoint x="740" y="177" />
+        <di:waypoint x="882" y="177" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
