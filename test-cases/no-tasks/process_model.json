@@ -1,0 +1,11 @@
+{
+    "description": "Just start and end events",
+    "display_name": "No Tasks",
+    "display_order": 0,
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "files": [],
+    "metadata_extraction_paths": null,
+    "primary_file_name": "no-tasks.bpmn",
+    "primary_process_id": "no_tasks"
+}
