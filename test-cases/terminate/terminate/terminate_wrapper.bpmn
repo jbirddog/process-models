@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="Process_ln7m64r" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0ozs6gq</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0ozs6gq" sourceRef="StartEvent_1" targetRef="Activity_1x3awt1" />
+    <bpmn:sequenceFlow id="Flow_0ou57cp" sourceRef="Activity_1x3awt1" targetRef="Activity_0dimwpp" />
+    <bpmn:endEvent id="Event_1dfmpwt">
+      <bpmn:incoming>Flow_1ehmf4k</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0g0gy8x" sourceRef="Activity_0dimwpp" targetRef="Activity_0ueg48t" />
+    <bpmn:scriptTask id="Activity_0dimwpp" name="do something after terminate">
+      <bpmn:incoming>Flow_0ou57cp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0g0gy8x</bpmn:outgoing>
+      <bpmn:script>thing_is="i ran after a terminate end event within a call activity"</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:callActivity id="Activity_1x3awt1" name="call activity that terminates" calledElement="Process_i8u2pup">
+      <bpmn:incoming>Flow_0ozs6gq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ou57cp</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_07tldo2" sourceRef="Activity_0ueg48t" targetRef="Activity_0hluz0o" />
+    <bpmn:subProcess id="Activity_0ueg48t" name="subprocess that terminates">
+      <bpmn:incoming>Flow_0g0gy8x</bpmn:incoming>
+      <bpmn:outgoing>Flow_07tldo2</bpmn:outgoing>
+      <bpmn:startEvent id="Event_0bro08s">
+        <bpmn:outgoing>Flow_0sh9xwo</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_0sh9xwo" sourceRef="Event_0bro08s" targetRef="Event_05bglwo" />
+      <bpmn:endEvent id="Event_05bglwo">
+        <bpmn:incoming>Flow_0sh9xwo</bpmn:incoming>
+        <bpmn:terminateEventDefinition id="TerminateEventDefinition_071ysap" />
+      </bpmn:endEvent>
+    </bpmn:subProcess>
+    <bpmn:scriptTask id="Activity_0hluz0o" name="do something after terminate">
+      <bpmn:incoming>Flow_07tldo2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ehmf4k</bpmn:outgoing>
+      <bpmn:script>thing_is2="i ran after a terminate end event within a subprocess"</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_1ehmf4k" sourceRef="Activity_0hluz0o" targetRef="Event_1dfmpwt" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_ln7m64r">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1dfmpwt_di" bpmnElement="Event_1dfmpwt">
+        <dc:Bounds x="822" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08cs6q1_di" bpmnElement="Activity_1x3awt1">
+        <dc:Bounds x="270" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1erdav6_di" bpmnElement="Activity_0dimwpp">
+        <dc:Bounds x="410" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0tumhbc" bpmnElement="Activity_0hluz0o">
+        <dc:Bounds x="690" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_125dmr8_di" bpmnElement="Activity_0ueg48t">
+        <dc:Bounds x="550" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ozs6gq_di" bpmnElement="Flow_0ozs6gq">
+        <di:waypoint x="215" y="177" />
+        <di:waypoint x="270" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ou57cp_di" bpmnElement="Flow_0ou57cp">
+        <di:waypoint x="370" y="177" />
+        <di:waypoint x="410" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0g0gy8x_di" bpmnElement="Flow_0g0gy8x">
+        <di:waypoint x="510" y="177" />
+        <di:waypoint x="550" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07tldo2_di" bpmnElement="Flow_07tldo2">
+        <di:waypoint x="650" y="177" />
+        <di:waypoint x="690" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ehmf4k_di" bpmnElement="Flow_1ehmf4k">
+        <di:waypoint x="790" y="177" />
+        <di:waypoint x="822" y="177" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_18g6d6z">
+    <bpmndi:BPMNPlane id="BPMNPlane_0qhdphh" bpmnElement="Activity_0ueg48t">
+      <bpmndi:BPMNShape id="Event_0bro08s_di" bpmnElement="Event_0bro08s">
+        <dc:Bounds x="222" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1b20zp7_di" bpmnElement="Event_05bglwo">
+        <dc:Bounds x="332" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0sh9xwo_di" bpmnElement="Flow_0sh9xwo">
+        <di:waypoint x="258" y="130" />
+        <di:waypoint x="332" y="130" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

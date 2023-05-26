@@ -10,7 +10,7 @@
       <bpmn:outgoing>Flow_0eaeoas</bpmn:outgoing>
     </bpmn:callActivity>
     <bpmn:sequenceFlow id="Flow_0eaeoas" sourceRef="Activity_185dcnc" targetRef="Activity_0rsppq2" />
-    <bpmn:callActivity id="Activity_0rsppq2" calledElement="Process_diu8ta2">
+    <bpmn:callActivity id="Activity_0rsppq2" calledElement="SingleTask_Process">
       <bpmn:incoming>Flow_0eaeoas</bpmn:incoming>
       <bpmn:outgoing>Flow_0hqm48x</bpmn:outgoing>
     </bpmn:callActivity>
@@ -19,7 +19,7 @@
       <bpmn:incoming>Flow_0vhq9kk</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0vhq9kk" sourceRef="Activity_0d5dido" targetRef="Event_0yflyfj" />
-    <bpmn:callActivity id="Activity_0d5dido" calledElement="Process_l14lar1">
+    <bpmn:callActivity id="Activity_0d5dido" calledElement="Process_diu8ta2">
       <bpmn:incoming>Flow_0hqm48x</bpmn:incoming>
       <bpmn:outgoing>Flow_0vhq9kk</bpmn:outgoing>
     </bpmn:callActivity>
