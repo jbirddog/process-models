@@ -19,13 +19,13 @@
       "Process_diu8ta2"
     ],
     "Process_90mmqlw": [
-      "Process_diu8ta2",
       "SingleTask_Process",
-      "Process_sypm122"
+      "Process_sypm122",
+      "Process_diu8ta2"
     ],
     "Process_cqu23d1": [
-      "Process_p4pfxhq",
-      "SingleTask_Process"
+      "SingleTask_Process",
+      "Process_p4pfxhq"
     ],
     "Process_p4pfxhq": [
       "SingleTask_Process"
