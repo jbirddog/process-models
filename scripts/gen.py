@@ -79,16 +79,16 @@ def serialize_workflow_specs_for_process_id(process_id, ctx):
     }
     return json.dumps(workflow_specs_dct, sort_keys=True, indent=2)
 
-def write_file(filename, contents):
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, "w") as f:
-        f.write(contents)
-
 def generate_workflow_specs(specs_dir, ctx):
     try:
         shutil.rmtree(specs_dir)
     except FileNotFoundError:
         pass
+
+    def write_file(filename, contents):
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        with open(filename, "w") as f:
+            f.write(contents)
 
     for bpmn_file, process_ids in ctx.process_ids_by_bpmn_file.items():
         for i, process_id in enumerate(process_ids):
@@ -96,9 +96,18 @@ def generate_workflow_specs(specs_dir, ctx):
             workflow_specs_json = serialize_workflow_specs_for_process_id(process_id, ctx)
             write_file(filename, workflow_specs_json)
             ctx.process_id_by_json_file[filename] = process_id
+
+def generate_manifest(ctx):
+    manifest = {
+        "bpmn_file_by_process_id": ctx.bpmn_file_by_process_id,
+        "called_element_ids_by_process_id": ctx.called_element_ids_by_process_id,
+        "process_id_by_workflow_spec_json": ctx.process_id_by_json_file,
+        "process_ids_by_bpmn_file": ctx.process_ids_by_bpmn_file,
+    }
+
+    with open("manifest.json", "w") as f:
+        f.write(json.dumps(manifest, sort_keys=True, indent=2))
     
-    print(json.dumps(ctx.process_id_by_json_file, sort_keys=True, indent=2))
-        
 def generate_manifest_and_workflow_specs(bpmn_files, specs_dir):
     ctx = ParsingContext(
         process_ids_by_bpmn_file = {},
@@ -113,6 +122,7 @@ def generate_manifest_and_workflow_specs(bpmn_files, specs_dir):
 
     extend_called_element_ids(ctx)
     generate_workflow_specs(specs_dir, ctx)
+    generate_manifest(ctx)
 
 if __name__ == "__main__":
     bpmn_files = glob("bpmn/**/*.bpmn")
