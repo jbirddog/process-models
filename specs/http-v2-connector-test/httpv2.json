@@ -1,0 +1,271 @@
+{
+  "serializer_version": "jbirddog/process-models",
+  "spec": {
+    "correlation_keys": {},
+    "data_objects": {},
+    "description": "Coin Gecko - Simple Price API",
+    "file": "bpmn/http-v2-connector-test/httpv2.bpmn",
+    "io_specification": null,
+    "name": "coin-gecko_simple-price",
+    "task_specs": {
+      "Activity_084esg6": {
+        "bpmn_id": "Activity_084esg6",
+        "bpmn_name": "post v2",
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Service Task",
+        "documentation": null,
+        "extensions": {
+          "serviceTaskOperator": {
+            "name": "http/PostRequestV2",
+            "parameters": {
+              "basic_auth_password": {
+                "type": "str",
+                "value": "None"
+              },
+              "basic_auth_username": {
+                "type": "str",
+                "value": "None"
+              },
+              "data": {
+                "type": "any",
+                "value": "{\"uXXrl\": \"https://api.coingecko.com/api/v3/simple/price\", \"params\": {\"ids\": \"DAI\", \"vs_currencies\": \"USD,ETH\" }}"
+              },
+              "headers": {
+                "type": "any",
+                "value": "{}"
+              },
+              "url": {
+                "type": "str",
+                "value": "\"http://localhost:5000/v1/do/http/GetRequest\""
+              }
+            },
+            "resultVariable": null
+          }
+        },
+        "inputs": [
+          "Activity_17nl8sw"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Activity_084esg6",
+        "operation_name": "http/PostRequestV2",
+        "operation_params": {
+          "basic_auth_password": {
+            "type": "str",
+            "value": "None"
+          },
+          "basic_auth_username": {
+            "type": "str",
+            "value": "None"
+          },
+          "data": {
+            "type": "any",
+            "value": "{\"uXXrl\": \"https://api.coingecko.com/api/v3/simple/price\", \"params\": {\"ids\": \"DAI\", \"vs_currencies\": \"USD,ETH\" }}"
+          },
+          "headers": {
+            "type": "any",
+            "value": "{}"
+          },
+          "url": {
+            "type": "str",
+            "value": "\"http://localhost:5000/v1/do/http/GetRequest\""
+          }
+        },
+        "outputs": [
+          "Event_12czlsn"
+        ],
+        "postscript": null,
+        "prescript": null,
+        "result_variable": null,
+        "typename": "ServiceTask"
+      },
+      "Activity_17nl8sw": {
+        "bpmn_id": "Activity_17nl8sw",
+        "bpmn_name": "simple price",
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Service Task",
+        "documentation": null,
+        "extensions": {
+          "serviceTaskOperator": {
+            "name": "http/GetRequestV2",
+            "parameters": {
+              "basic_auth_password": {
+                "type": "str",
+                "value": "None"
+              },
+              "basic_auth_username": {
+                "type": "str",
+                "value": "None"
+              },
+              "headers": {
+                "type": "any",
+                "value": "{\"Accept\": \"application/json\"}"
+              },
+              "params": {
+                "type": "any",
+                "value": "{\"ids\": \"DAI\", \"vs_currencies\": \"USD,ETH\" }"
+              },
+              "url": {
+                "type": "str",
+                "value": "\"https://api.coingecko.com/api/v3/simple/price\""
+              }
+            },
+            "resultVariable": null
+          }
+        },
+        "inputs": [
+          "StartEvent_1"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Activity_17nl8sw",
+        "operation_name": "http/GetRequestV2",
+        "operation_params": {
+          "basic_auth_password": {
+            "type": "str",
+            "value": "None"
+          },
+          "basic_auth_username": {
+            "type": "str",
+            "value": "None"
+          },
+          "headers": {
+            "type": "any",
+            "value": "{\"Accept\": \"application/json\"}"
+          },
+          "params": {
+            "type": "any",
+            "value": "{\"ids\": \"DAI\", \"vs_currencies\": \"USD,ETH\" }"
+          },
+          "url": {
+            "type": "str",
+            "value": "\"https://api.coingecko.com/api/v3/simple/price\""
+          }
+        },
+        "outputs": [
+          "Activity_084esg6"
+        ],
+        "postscript": null,
+        "prescript": null,
+        "result_variable": null,
+        "typename": "ServiceTask"
+      },
+      "End": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "coin-gecko_simple-price.EndJoin"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "End",
+        "outputs": [],
+        "typename": "SimpleBpmnTask"
+      },
+      "Event_12czlsn": {
+        "bpmn_id": "Event_12czlsn",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Default End Event",
+        "documentation": null,
+        "event_definition": {
+          "description": "Default",
+          "name": null,
+          "typename": "NoneEventDefinition"
+        },
+        "extensions": {},
+        "inputs": [
+          "Activity_084esg6"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Event_12czlsn",
+        "outputs": [
+          "coin-gecko_simple-price.EndJoin"
+        ],
+        "typename": "EndEvent"
+      },
+      "Start": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Start",
+        "outputs": [
+          "StartEvent_1"
+        ],
+        "typename": "BpmnStartTask"
+      },
+      "StartEvent_1": {
+        "bpmn_id": "StartEvent_1",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Default Start Event",
+        "documentation": null,
+        "event_definition": {
+          "description": "Default",
+          "name": null,
+          "typename": "NoneEventDefinition"
+        },
+        "extensions": {},
+        "inputs": [
+          "Start"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "StartEvent_1",
+        "outputs": [
+          "Activity_17nl8sw"
+        ],
+        "typename": "StartEvent"
+      },
+      "coin-gecko_simple-price.EndJoin": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "Event_12czlsn"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "coin-gecko_simple-price.EndJoin",
+        "outputs": [
+          "End"
+        ],
+        "typename": "_EndJoin"
+      }
+    },
+    "typename": "BpmnProcessSpec"
+  },
+  "subprocess_specs": {}
+}
