@@ -31,7 +31,7 @@ def extend_called_element_ids(ctx):
             if id not in resolved:
                 resolved[id] = extend(ctx.called_element_ids_by_process_id.get(id, []))
             extended.extend(resolved[id])
-        return list(set(extended))
+        return sorted(list(set(extended)))
     
     for k, v in ctx.called_element_ids_by_process_id.items():
         extended = extend(v)
