@@ -4,7 +4,7 @@
     "correlation_keys": {},
     "data_objects": {},
     "description": "Coin Gecko - Simple Price API",
-    "file": "bpmn/http-v2-connector-test/httpv2.bpmn",
+    "file": "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn",
     "io_specification": null,
     "name": "coin-gecko_simple-price",
     "task_specs": {

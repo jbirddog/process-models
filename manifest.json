@@ -1,18 +1,18 @@
 {
   "bpmn_file_by_process_id": {
-    "Process_048urbd": "bpmn/call-activity-with-manual-tasks/call_manual_tasks.bpmn",
-    "Process_84evfap": "bpmn/start-timer1/start-timer1.bpmn",
-    "Process_90mmqlw": "bpmn/mutliple-call-activities/multiple_call_activities.bpmn",
-    "Process_cqu23d1": "bpmn/nested-call-activities/nested_call_activity.bpmn",
-    "Process_diu8ta2": "bpmn/manual-tasks/manual_tasks.bpmn",
-    "Process_fwplcm1": "bpmn/cycle-start-timer/cycle-start-timer.bpmn",
-    "Process_p4pfxhq": "bpmn/simple-call-activity/simple_call_activity.bpmn",
-    "Process_sypm122": "bpmn/countries-and-cities/country_cities.bpmn",
-    "Process_vv0fdgv": "bpmn/simple-subprocess/simple_subprocess.bpmn",
-    "Process_w13g1wd": "bpmn/madhu-timer/madhutimertask.bpmn",
-    "SingleTask_Process": "bpmn/single-task/single_task.bpmn",
-    "coin-gecko_simple-price": "bpmn/http-v2-connector-test/httpv2.bpmn",
-    "no_tasks": "bpmn/no-tasks/no-tasks.bpmn"
+    "Process_048urbd": "bpmn/test-cases/call-activity-with-manual-tasks/call_manual_tasks.bpmn",
+    "Process_84evfap": "bpmn/test-cases/start-timer1/start-timer1.bpmn",
+    "Process_90mmqlw": "bpmn/test-cases/mutliple-call-activities/multiple_call_activities.bpmn",
+    "Process_cqu23d1": "bpmn/test-cases/nested-call-activities/nested_call_activity.bpmn",
+    "Process_diu8ta2": "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
+    "Process_fwplcm1": "bpmn/test-cases/cycle-start-timer/cycle-start-timer.bpmn",
+    "Process_p4pfxhq": "bpmn/test-cases/simple-call-activity/simple_call_activity.bpmn",
+    "Process_sypm122": "bpmn/test-cases/countries-and-cities/country_cities.bpmn",
+    "Process_vv0fdgv": "bpmn/test-cases/simple-subprocess/simple_subprocess.bpmn",
+    "Process_w13g1wd": "bpmn/test-cases/madhu-timer/madhutimertask.bpmn",
+    "SingleTask_Process": "bpmn/test-cases/single-task/single_task.bpmn",
+    "coin-gecko_simple-price": "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn",
+    "no_tasks": "bpmn/test-cases/no-tasks/no-tasks.bpmn"
   },
   "called_element_ids_by_process_id": {
     "Process_048urbd": [
@@ -32,58 +32,58 @@
     ]
   },
   "process_id_by_workflow_spec_json": {
-    "specs/call-activity-with-manual-tasks/call_manual_tasks.json": "Process_048urbd",
-    "specs/countries-and-cities/country_cities.json": "Process_sypm122",
-    "specs/cycle-start-timer/cycle-start-timer.json": "Process_fwplcm1",
-    "specs/http-v2-connector-test/httpv2.json": "coin-gecko_simple-price",
-    "specs/madhu-timer/madhutimertask.json": "Process_w13g1wd",
-    "specs/manual-tasks/manual_tasks.json": "Process_diu8ta2",
-    "specs/mutliple-call-activities/multiple_call_activities.json": "Process_90mmqlw",
-    "specs/nested-call-activities/nested_call_activity.json": "Process_cqu23d1",
-    "specs/no-tasks/no-tasks.json": "no_tasks",
-    "specs/simple-call-activity/simple_call_activity.json": "Process_p4pfxhq",
-    "specs/simple-subprocess/simple_subprocess.json": "Process_vv0fdgv",
-    "specs/single-task/single_task.json": "SingleTask_Process",
-    "specs/start-timer1/start-timer1.json": "Process_84evfap"
+    "specs/test-cases/call-activity-with-manual-tasks/call_manual_tasks.json": "Process_048urbd",
+    "specs/test-cases/countries-and-cities/country_cities.json": "Process_sypm122",
+    "specs/test-cases/cycle-start-timer/cycle-start-timer.json": "Process_fwplcm1",
+    "specs/test-cases/http-v2-connector-test/httpv2.json": "coin-gecko_simple-price",
+    "specs/test-cases/madhu-timer/madhutimertask.json": "Process_w13g1wd",
+    "specs/test-cases/manual-tasks/manual_tasks.json": "Process_diu8ta2",
+    "specs/test-cases/mutliple-call-activities/multiple_call_activities.json": "Process_90mmqlw",
+    "specs/test-cases/nested-call-activities/nested_call_activity.json": "Process_cqu23d1",
+    "specs/test-cases/no-tasks/no-tasks.json": "no_tasks",
+    "specs/test-cases/simple-call-activity/simple_call_activity.json": "Process_p4pfxhq",
+    "specs/test-cases/simple-subprocess/simple_subprocess.json": "Process_vv0fdgv",
+    "specs/test-cases/single-task/single_task.json": "SingleTask_Process",
+    "specs/test-cases/start-timer1/start-timer1.json": "Process_84evfap"
   },
   "process_ids_by_bpmn_file": {
-    "bpmn/call-activity-with-manual-tasks/call_manual_tasks.bpmn": [
+    "bpmn/test-cases/call-activity-with-manual-tasks/call_manual_tasks.bpmn": [
       "Process_048urbd"
     ],
-    "bpmn/countries-and-cities/country_cities.bpmn": [
+    "bpmn/test-cases/countries-and-cities/country_cities.bpmn": [
       "Process_sypm122"
     ],
-    "bpmn/cycle-start-timer/cycle-start-timer.bpmn": [
+    "bpmn/test-cases/cycle-start-timer/cycle-start-timer.bpmn": [
       "Process_fwplcm1"
     ],
-    "bpmn/http-v2-connector-test/httpv2.bpmn": [
+    "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn": [
       "coin-gecko_simple-price"
     ],
-    "bpmn/madhu-timer/madhutimertask.bpmn": [
+    "bpmn/test-cases/madhu-timer/madhutimertask.bpmn": [
       "Process_w13g1wd"
     ],
-    "bpmn/manual-tasks/manual_tasks.bpmn": [
+    "bpmn/test-cases/manual-tasks/manual_tasks.bpmn": [
       "Process_diu8ta2"
     ],
-    "bpmn/mutliple-call-activities/multiple_call_activities.bpmn": [
+    "bpmn/test-cases/mutliple-call-activities/multiple_call_activities.bpmn": [
       "Process_90mmqlw"
     ],
-    "bpmn/nested-call-activities/nested_call_activity.bpmn": [
+    "bpmn/test-cases/nested-call-activities/nested_call_activity.bpmn": [
       "Process_cqu23d1"
     ],
-    "bpmn/no-tasks/no-tasks.bpmn": [
+    "bpmn/test-cases/no-tasks/no-tasks.bpmn": [
       "no_tasks"
     ],
-    "bpmn/simple-call-activity/simple_call_activity.bpmn": [
+    "bpmn/test-cases/simple-call-activity/simple_call_activity.bpmn": [
       "Process_p4pfxhq"
     ],
-    "bpmn/simple-subprocess/simple_subprocess.bpmn": [
+    "bpmn/test-cases/simple-subprocess/simple_subprocess.bpmn": [
       "Process_vv0fdgv"
     ],
-    "bpmn/single-task/single_task.bpmn": [
+    "bpmn/test-cases/single-task/single_task.bpmn": [
       "SingleTask_Process"
     ],
-    "bpmn/start-timer1/start-timer1.bpmn": [
+    "bpmn/test-cases/start-timer1/start-timer1.bpmn": [
       "Process_84evfap"
     ]
   }

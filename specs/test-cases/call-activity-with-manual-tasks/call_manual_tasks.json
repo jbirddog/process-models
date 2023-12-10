@@ -4,7 +4,7 @@
     "correlation_keys": {},
     "data_objects": {},
     "description": "Process_048urbd",
-    "file": "bpmn/call-activity-with-manual-tasks/call_manual_tasks.bpmn",
+    "file": "bpmn/test-cases/call-activity-with-manual-tasks/call_manual_tasks.bpmn",
     "io_specification": null,
     "name": "Process_048urbd",
     "task_specs": {
@@ -148,7 +148,7 @@
       "correlation_keys": {},
       "data_objects": {},
       "description": "Process_diu8ta2",
-      "file": "bpmn/manual-tasks/manual_tasks.bpmn",
+      "file": "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
       "io_specification": null,
       "name": "Process_diu8ta2",
       "task_specs": {

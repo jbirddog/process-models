@@ -4,7 +4,7 @@
     "correlation_keys": {},
     "data_objects": {},
     "description": "Process_90mmqlw",
-    "file": "bpmn/mutliple-call-activities/multiple_call_activities.bpmn",
+    "file": "bpmn/test-cases/mutliple-call-activities/multiple_call_activities.bpmn",
     "io_specification": null,
     "name": "Process_90mmqlw",
     "task_specs": {
@@ -196,7 +196,7 @@
       "correlation_keys": {},
       "data_objects": {},
       "description": "Process_diu8ta2",
-      "file": "bpmn/manual-tasks/manual_tasks.bpmn",
+      "file": "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
       "io_specification": null,
       "name": "Process_diu8ta2",
       "task_specs": {
@@ -364,7 +364,7 @@
       "correlation_keys": {},
       "data_objects": {},
       "description": "Process_sypm122",
-      "file": "bpmn/countries-and-cities/country_cities.bpmn",
+      "file": "bpmn/test-cases/countries-and-cities/country_cities.bpmn",
       "io_specification": null,
       "name": "Process_sypm122",
       "task_specs": {
@@ -705,7 +705,7 @@
       "correlation_keys": {},
       "data_objects": {},
       "description": "SingleTask_Process",
-      "file": "bpmn/single-task/single_task.bpmn",
+      "file": "bpmn/test-cases/single-task/single_task.bpmn",
       "io_specification": null,
       "name": "SingleTask_Process",
       "task_specs": {

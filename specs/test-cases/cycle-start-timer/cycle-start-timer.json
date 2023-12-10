@@ -4,7 +4,7 @@
     "correlation_keys": {},
     "data_objects": {},
     "description": "Process_fwplcm1",
-    "file": "bpmn/cycle-start-timer/cycle-start-timer.bpmn",
+    "file": "bpmn/test-cases/cycle-start-timer/cycle-start-timer.bpmn",
     "io_specification": null,
     "name": "Process_fwplcm1",
     "task_specs": {

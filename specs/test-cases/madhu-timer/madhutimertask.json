@@ -4,7 +4,7 @@
     "correlation_keys": {},
     "data_objects": {},
     "description": "Process_w13g1wd",
-    "file": "bpmn/madhu-timer/madhutimertask.bpmn",
+    "file": "bpmn/test-cases/madhu-timer/madhutimertask.bpmn",
     "io_specification": null,
     "name": "Process_w13g1wd",
     "task_specs": {

@@ -3,35 +3,11 @@
   "spec": {
     "correlation_keys": {},
     "data_objects": {},
-    "description": "subprocess_process",
-    "file": "bpmn/simple-subprocess/simple_subprocess.bpmn",
+    "description": "No Tasks",
+    "file": "bpmn/test-cases/no-tasks/no-tasks.bpmn",
     "io_specification": null,
-    "name": "Process_vv0fdgv",
+    "name": "no_tasks",
     "task_specs": {
-      "Activity_12x6czg": {
-        "bpmn_id": "Activity_12x6czg",
-        "bpmn_name": null,
-        "data_input_associations": [],
-        "data_output_associations": [],
-        "description": "Subprocess",
-        "documentation": null,
-        "extensions": {},
-        "inputs": [
-          "StartEvent_1"
-        ],
-        "io_specification": null,
-        "lane": null,
-        "lookahead": 2,
-        "manual": false,
-        "name": "Activity_12x6czg",
-        "outputs": [
-          "Event_0lhuova"
-        ],
-        "postscript": null,
-        "prescript": null,
-        "spec": "Activity_12x6czg",
-        "typename": "SubWorkflowTask"
-      },
       "End": {
         "bpmn_id": null,
         "bpmn_name": null,
@@ -40,7 +16,7 @@
         "description": "BPMN Task",
         "documentation": null,
         "inputs": [
-          "Process_vv0fdgv.EndJoin"
+          "no_tasks.EndJoin"
         ],
         "io_specification": null,
         "lane": null,
@@ -50,8 +26,8 @@
         "outputs": [],
         "typename": "SimpleBpmnTask"
       },
-      "Event_0lhuova": {
-        "bpmn_id": "Event_0lhuova",
+      "Event_0qq9il3": {
+        "bpmn_id": "Event_0qq9il3",
         "bpmn_name": null,
         "data_input_associations": [],
         "data_output_associations": [],
@@ -64,37 +40,17 @@
         },
         "extensions": {},
         "inputs": [
-          "Activity_12x6czg"
+          "StartEvent_1"
         ],
         "io_specification": null,
         "lane": null,
         "lookahead": 2,
         "manual": false,
-        "name": "Event_0lhuova",
+        "name": "Event_0qq9il3",
         "outputs": [
-          "Process_vv0fdgv.EndJoin"
+          "no_tasks.EndJoin"
         ],
         "typename": "EndEvent"
-      },
-      "Process_vv0fdgv.EndJoin": {
-        "bpmn_id": null,
-        "bpmn_name": null,
-        "data_input_associations": [],
-        "data_output_associations": [],
-        "description": "BPMN Task",
-        "documentation": null,
-        "inputs": [
-          "Event_0lhuova"
-        ],
-        "io_specification": null,
-        "lane": null,
-        "lookahead": 2,
-        "manual": false,
-        "name": "Process_vv0fdgv.EndJoin",
-        "outputs": [
-          "End"
-        ],
-        "typename": "_EndJoin"
       },
       "Start": {
         "bpmn_id": null,
@@ -136,9 +92,29 @@
         "manual": false,
         "name": "StartEvent_1",
         "outputs": [
-          "Activity_12x6czg"
+          "Event_0qq9il3"
         ],
         "typename": "StartEvent"
+      },
+      "no_tasks.EndJoin": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "Event_0qq9il3"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "no_tasks.EndJoin",
+        "outputs": [
+          "End"
+        ],
+        "typename": "_EndJoin"
       }
     },
     "typename": "BpmnProcessSpec"

@@ -125,5 +125,5 @@ def generate_manifest_and_workflow_specs(bpmn_files, specs_dir):
     generate_manifest(ctx)
 
 if __name__ == "__main__":
-    bpmn_files = glob("bpmn/**/*.bpmn")
+    bpmn_files = glob("bpmn/**/**/*.bpmn")
     generate_manifest_and_workflow_specs(bpmn_files, "specs")

@@ -4,7 +4,7 @@
     "correlation_keys": {},
     "data_objects": {},
     "description": "Process_cqu23d1",
-    "file": "bpmn/nested-call-activities/nested_call_activity.bpmn",
+    "file": "bpmn/test-cases/nested-call-activities/nested_call_activity.bpmn",
     "io_specification": null,
     "name": "Process_cqu23d1",
     "task_specs": {
@@ -148,7 +148,7 @@
       "correlation_keys": {},
       "data_objects": {},
       "description": "Process_p4pfxhq",
-      "file": "bpmn/simple-call-activity/simple_call_activity.bpmn",
+      "file": "bpmn/test-cases/simple-call-activity/simple_call_activity.bpmn",
       "io_specification": null,
       "name": "Process_p4pfxhq",
       "task_specs": {
@@ -291,7 +291,7 @@
       "correlation_keys": {},
       "data_objects": {},
       "description": "SingleTask_Process",
-      "file": "bpmn/single-task/single_task.bpmn",
+      "file": "bpmn/test-cases/single-task/single_task.bpmn",
       "io_specification": null,
       "name": "SingleTask_Process",
       "task_specs": {

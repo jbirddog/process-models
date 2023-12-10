@@ -3,17 +3,17 @@
   "spec": {
     "correlation_keys": {},
     "data_objects": {},
-    "description": "Process_84evfap",
-    "file": "bpmn/start-timer1/start-timer1.bpmn",
+    "description": "subprocess_process",
+    "file": "bpmn/test-cases/simple-subprocess/simple_subprocess.bpmn",
     "io_specification": null,
-    "name": "Process_84evfap",
+    "name": "Process_vv0fdgv",
     "task_specs": {
-      "Activity_0ni5otr": {
-        "bpmn_id": "Activity_0ni5otr",
+      "Activity_12x6czg": {
+        "bpmn_id": "Activity_12x6czg",
         "bpmn_name": null,
         "data_input_associations": [],
         "data_output_associations": [],
-        "description": "Script Task",
+        "description": "Subprocess",
         "documentation": null,
         "extensions": {},
         "inputs": [
@@ -23,14 +23,14 @@
         "lane": null,
         "lookahead": 2,
         "manual": false,
-        "name": "Activity_0ni5otr",
+        "name": "Activity_12x6czg",
         "outputs": [
-          "Event_1ybe9ts"
+          "Event_0lhuova"
         ],
         "postscript": null,
         "prescript": null,
-        "script": "x=11",
-        "typename": "ScriptTask"
+        "spec": "Activity_12x6czg",
+        "typename": "SubWorkflowTask"
       },
       "End": {
         "bpmn_id": null,
@@ -40,7 +40,7 @@
         "description": "BPMN Task",
         "documentation": null,
         "inputs": [
-          "Process_84evfap.EndJoin"
+          "Process_vv0fdgv.EndJoin"
         ],
         "io_specification": null,
         "lane": null,
@@ -50,8 +50,8 @@
         "outputs": [],
         "typename": "SimpleBpmnTask"
       },
-      "Event_1ybe9ts": {
-        "bpmn_id": "Event_1ybe9ts",
+      "Event_0lhuova": {
+        "bpmn_id": "Event_0lhuova",
         "bpmn_name": null,
         "data_input_associations": [],
         "data_output_associations": [],
@@ -64,19 +64,19 @@
         },
         "extensions": {},
         "inputs": [
-          "Activity_0ni5otr"
+          "Activity_12x6czg"
         ],
         "io_specification": null,
         "lane": null,
         "lookahead": 2,
         "manual": false,
-        "name": "Event_1ybe9ts",
+        "name": "Event_0lhuova",
         "outputs": [
-          "Process_84evfap.EndJoin"
+          "Process_vv0fdgv.EndJoin"
         ],
         "typename": "EndEvent"
       },
-      "Process_84evfap.EndJoin": {
+      "Process_vv0fdgv.EndJoin": {
         "bpmn_id": null,
         "bpmn_name": null,
         "data_input_associations": [],
@@ -84,13 +84,13 @@
         "description": "BPMN Task",
         "documentation": null,
         "inputs": [
-          "Event_1ybe9ts"
+          "Event_0lhuova"
         ],
         "io_specification": null,
         "lane": null,
         "lookahead": 2,
         "manual": false,
-        "name": "Process_84evfap.EndJoin",
+        "name": "Process_vv0fdgv.EndJoin",
         "outputs": [
           "End"
         ],
@@ -119,13 +119,12 @@
         "bpmn_name": null,
         "data_input_associations": [],
         "data_output_associations": [],
-        "description": "Timer Start Event",
+        "description": "Default Start Event",
         "documentation": null,
         "event_definition": {
-          "description": "Timer",
-          "expression": "\"PT15S\"",
-          "name": "StartEvent_1",
-          "typename": "DurationTimerEventDefinition"
+          "description": "Default",
+          "name": null,
+          "typename": "NoneEventDefinition"
         },
         "extensions": {},
         "inputs": [
@@ -137,7 +136,7 @@
         "manual": false,
         "name": "StartEvent_1",
         "outputs": [
-          "Activity_0ni5otr"
+          "Activity_12x6czg"
         ],
         "typename": "StartEvent"
       }

@@ -4,7 +4,7 @@
     "correlation_keys": {},
     "data_objects": {},
     "description": "Process_sypm122",
-    "file": "bpmn/countries-and-cities/country_cities.bpmn",
+    "file": "bpmn/test-cases/countries-and-cities/country_cities.bpmn",
     "io_specification": null,
     "name": "Process_sypm122",
     "task_specs": {
