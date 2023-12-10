@@ -1,0 +1,148 @@
+{
+  "serializer_version": "jbirddog/process-models",
+  "spec": {
+    "correlation_keys": {},
+    "data_objects": {},
+    "description": "Process_84evfap",
+    "file": "bpmn/test-cases/start-timer1/start-timer1.bpmn",
+    "io_specification": null,
+    "name": "Process_84evfap",
+    "task_specs": {
+      "Activity_0ni5otr": {
+        "bpmn_id": "Activity_0ni5otr",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Script Task",
+        "documentation": null,
+        "extensions": {},
+        "inputs": [
+          "StartEvent_1"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Activity_0ni5otr",
+        "outputs": [
+          "Event_1ybe9ts"
+        ],
+        "postscript": null,
+        "prescript": null,
+        "script": "x=11",
+        "typename": "ScriptTask"
+      },
+      "End": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "Process_84evfap.EndJoin"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "End",
+        "outputs": [],
+        "typename": "SimpleBpmnTask"
+      },
+      "Event_1ybe9ts": {
+        "bpmn_id": "Event_1ybe9ts",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Default End Event",
+        "documentation": null,
+        "event_definition": {
+          "description": "Default",
+          "name": null,
+          "typename": "NoneEventDefinition"
+        },
+        "extensions": {},
+        "inputs": [
+          "Activity_0ni5otr"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Event_1ybe9ts",
+        "outputs": [
+          "Process_84evfap.EndJoin"
+        ],
+        "typename": "EndEvent"
+      },
+      "Process_84evfap.EndJoin": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "Event_1ybe9ts"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Process_84evfap.EndJoin",
+        "outputs": [
+          "End"
+        ],
+        "typename": "_EndJoin"
+      },
+      "Start": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Start",
+        "outputs": [
+          "StartEvent_1"
+        ],
+        "typename": "BpmnStartTask"
+      },
+      "StartEvent_1": {
+        "bpmn_id": "StartEvent_1",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Timer Start Event",
+        "documentation": null,
+        "event_definition": {
+          "description": "Timer",
+          "expression": "\"PT15S\"",
+          "name": "StartEvent_1",
+          "typename": "DurationTimerEventDefinition"
+        },
+        "extensions": {},
+        "inputs": [
+          "Start"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "StartEvent_1",
+        "outputs": [
+          "Activity_0ni5otr"
+        ],
+        "typename": "StartEvent"
+      }
+    },
+    "typename": "BpmnProcessSpec"
+  },
+  "subprocess_specs": {}
+}

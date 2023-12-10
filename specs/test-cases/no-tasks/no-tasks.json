@@ -1,0 +1,123 @@
+{
+  "serializer_version": "jbirddog/process-models",
+  "spec": {
+    "correlation_keys": {},
+    "data_objects": {},
+    "description": "No Tasks",
+    "file": "bpmn/test-cases/no-tasks/no-tasks.bpmn",
+    "io_specification": null,
+    "name": "no_tasks",
+    "task_specs": {
+      "End": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "no_tasks.EndJoin"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "End",
+        "outputs": [],
+        "typename": "SimpleBpmnTask"
+      },
+      "Event_0qq9il3": {
+        "bpmn_id": "Event_0qq9il3",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Default End Event",
+        "documentation": null,
+        "event_definition": {
+          "description": "Default",
+          "name": null,
+          "typename": "NoneEventDefinition"
+        },
+        "extensions": {},
+        "inputs": [
+          "StartEvent_1"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Event_0qq9il3",
+        "outputs": [
+          "no_tasks.EndJoin"
+        ],
+        "typename": "EndEvent"
+      },
+      "Start": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Start",
+        "outputs": [
+          "StartEvent_1"
+        ],
+        "typename": "BpmnStartTask"
+      },
+      "StartEvent_1": {
+        "bpmn_id": "StartEvent_1",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Default Start Event",
+        "documentation": null,
+        "event_definition": {
+          "description": "Default",
+          "name": null,
+          "typename": "NoneEventDefinition"
+        },
+        "extensions": {},
+        "inputs": [
+          "Start"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "StartEvent_1",
+        "outputs": [
+          "Event_0qq9il3"
+        ],
+        "typename": "StartEvent"
+      },
+      "no_tasks.EndJoin": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "Event_0qq9il3"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "no_tasks.EndJoin",
+        "outputs": [
+          "End"
+        ],
+        "typename": "_EndJoin"
+      }
+    },
+    "typename": "BpmnProcessSpec"
+  },
+  "subprocess_specs": {}
+}
