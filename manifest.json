@@ -2,7 +2,7 @@
   "bpmn_file_by_process_id": {
     "Process_048urbd": "bpmn/test-cases/call-activity-with-manual-tasks/call_manual_tasks.bpmn",
     "Process_84evfap": "bpmn/test-cases/start-timer1/start-timer1.bpmn",
-    "Process_90mmqlw": "bpmn/test-cases/mutliple-call-activities/multiple_call_activities.bpmn",
+    "Process_90mmqlw": "bpmn/test-cases/multiple-call-activities/multiple_call_activities.bpmn",
     "Process_cqu23d1": "bpmn/test-cases/nested-call-activities/nested_call_activity.bpmn",
     "Process_diu8ta2": "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
     "Process_fwplcm1": "bpmn/test-cases/cycle-start-timer/cycle-start-timer.bpmn",
@@ -38,7 +38,7 @@
     "specs/test-cases/http-v2-connector-test/httpv2.json": "coin-gecko_simple-price",
     "specs/test-cases/madhu-timer/madhutimertask.json": "Process_w13g1wd",
     "specs/test-cases/manual-tasks/manual_tasks.json": "Process_diu8ta2",
-    "specs/test-cases/mutliple-call-activities/multiple_call_activities.json": "Process_90mmqlw",
+    "specs/test-cases/multiple-call-activities/multiple_call_activities.json": "Process_90mmqlw",
     "specs/test-cases/nested-call-activities/nested_call_activity.json": "Process_cqu23d1",
     "specs/test-cases/no-tasks/no-tasks.json": "no_tasks",
     "specs/test-cases/simple-call-activity/simple_call_activity.json": "Process_p4pfxhq",
@@ -65,7 +65,7 @@
     "bpmn/test-cases/manual-tasks/manual_tasks.bpmn": [
       "Process_diu8ta2"
     ],
-    "bpmn/test-cases/mutliple-call-activities/multiple_call_activities.bpmn": [
+    "bpmn/test-cases/multiple-call-activities/multiple_call_activities.bpmn": [
       "Process_90mmqlw"
     ],
     "bpmn/test-cases/nested-call-activities/nested_call_activity.bpmn": [
