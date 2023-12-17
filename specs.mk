@@ -1,0 +1,13 @@
+SPECS_FILE_coin-gecko_simple-price := specs/test-cases/http-v2-connector-test/httpv2.json
+SPECS_FILE_Process_p4pfxhq := specs/test-cases/simple-call-activity/simple_call_activity.json
+SPECS_FILE_no_tasks := specs/test-cases/no-tasks/no-tasks.json
+SPECS_FILE_Process_w13g1wd := specs/test-cases/madhu-timer/madhutimertask.json
+SPECS_FILE_Process_sypm122 := specs/test-cases/countries-and-cities/country_cities.json
+SPECS_FILE_Process_90mmqlw := specs/test-cases/multiple-call-activities/multiple_call_activities.json
+SPECS_FILE_Process_vv0fdgv := specs/test-cases/simple-subprocess/simple_subprocess.json
+SPECS_FILE_Process_cqu23d1 := specs/test-cases/nested-call-activities/nested_call_activity.json
+SPECS_FILE_Process_84evfap := specs/test-cases/start-timer1/start-timer1.json
+SPECS_FILE_Process_fwplcm1 := specs/test-cases/cycle-start-timer/cycle-start-timer.json
+SPECS_FILE_Process_048urbd := specs/test-cases/call-activity-with-manual-tasks/call_manual_tasks.json
+SPECS_FILE_Process_diu8ta2 := specs/test-cases/manual-tasks/manual_tasks.json
+SPECS_FILE_SingleTask_Process := specs/test-cases/single-task/single_task.json

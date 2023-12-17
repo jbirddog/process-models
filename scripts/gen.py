@@ -22,6 +22,7 @@ class ParsingContext:
     process_spec_by_id: dict[str, Any]
     called_element_ids_by_process_id: dict[str, list[str]]
     process_id_by_json_file: dict[str, str]
+    json_file_by_process_id: dict[str, str]
 
 def extend_called_element_ids(ctx):
     resolved = {}
@@ -96,6 +97,7 @@ def generate_workflow_specs(specs_dir, ctx):
             workflow_specs_json = serialize_workflow_specs_for_process_id(process_id, ctx)
             write_file(filename, workflow_specs_json)
             ctx.process_id_by_json_file[filename] = process_id
+            ctx.json_file_by_process_id[process_id] = filename
 
 def generate_manifest(ctx):
     manifest = {
@@ -103,18 +105,29 @@ def generate_manifest(ctx):
         "called_element_ids_by_process_id": ctx.called_element_ids_by_process_id,
         "process_id_by_workflow_spec_json": ctx.process_id_by_json_file,
         "process_ids_by_bpmn_file": ctx.process_ids_by_bpmn_file,
+        "workflow_spec_json_by_process_id": ctx.json_file_by_process_id,
     }
 
     with open("manifest.json", "w") as f:
         f.write(json.dumps(manifest, sort_keys=True, indent=2))
+
+def generate_specs_mk(ctx):
+    lines = []
+    for process_id, specs_filename in ctx.json_file_by_process_id.items():
+        lines.append(f"SPECS_FILE_{process_id} := {specs_filename}")
+
+    with open("specs.mk", "w") as f:
+        f.write("\n".join(lines))
     
-def generate_manifest_and_workflow_specs(bpmn_files, specs_dir):
+    
+def generate_output_files(bpmn_files, specs_dir):
     ctx = ParsingContext(
         process_ids_by_bpmn_file = {},
         bpmn_file_by_process_id = {},
         process_spec_by_id = {},
         called_element_ids_by_process_id = {},
         process_id_by_json_file = {},
+        json_file_by_process_id = {},
     )
     
     for bpmn_file in bpmn_files:
@@ -123,7 +136,8 @@ def generate_manifest_and_workflow_specs(bpmn_files, specs_dir):
     extend_called_element_ids(ctx)
     generate_workflow_specs(specs_dir, ctx)
     generate_manifest(ctx)
+    generate_specs_mk(ctx)
 
 if __name__ == "__main__":
     bpmn_files = glob("bpmn/**/**/*.bpmn")
-    generate_manifest_and_workflow_specs(bpmn_files, "specs")
+    generate_output_files(bpmn_files, "specs")
