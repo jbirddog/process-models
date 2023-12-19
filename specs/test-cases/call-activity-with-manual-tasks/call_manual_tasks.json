@@ -160,7 +160,7 @@
           "description": "Manual Task",
           "documentation": null,
           "extensions": {
-            "instructionsForEndUser": null,
+            "instructionsForEndUser": "These are the instructions for the first manual task.",
             "preScript": null
           },
           "inputs": [
