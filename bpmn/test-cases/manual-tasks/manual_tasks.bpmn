@@ -13,7 +13,7 @@
     <bpmn:manualTask id="Activity_1h7gm30">
       <bpmn:extensionElements>
         <spiffworkflow:preScript />
-        <spiffworkflow:instructionsForEndUser />
+        <spiffworkflow:instructionsForEndUser>These are the instructions for the first manual task.</spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1yjqrtl</bpmn:incoming>
       <bpmn:outgoing>Flow_0lfoegg</bpmn:outgoing>
