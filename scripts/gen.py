@@ -2,7 +2,7 @@ import json
 import os
 import shutil
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from glob import glob
 from typing import Any
 
@@ -17,12 +17,13 @@ serializer = BpmnWorkflowSerializer(registry=registry)
 
 @dataclass
 class ParsingContext:
-    process_ids_by_bpmn_file: dict[str, list[str]]
-    bpmn_file_by_process_id: dict[str, str]
-    process_spec_by_id: dict[str, Any]
-    called_element_ids_by_process_id: dict[str, list[str]]
-    process_id_by_json_file: dict[str, str]
-    json_file_by_process_id: dict[str, str]
+    process_ids_by_bpmn_file: dict[str, list[str]] = field(default_factory=dict)
+    bpmn_file_by_process_id: dict[str, str] = field(default_factory=dict)
+    process_spec_by_id: dict[str, Any] = field(default_factory=dict)
+    called_element_ids_by_process_id: dict[str, list[str]] = field(default_factory=dict)
+    process_id_by_json_file: dict[str, str] = field(default_factory=dict)
+    json_file_by_process_id: dict[str, str] = field(default_factory=dict)
+    subworkflows_by_process_id: dict[str, str] = field(default_factory=dict)
 
 def extend_called_element_ids(ctx):
     resolved = {}
@@ -50,8 +51,9 @@ def parse_bpmn_file(bpmn_file, ctx):
     parser = SpiffBpmnParser()
     parser.add_bpmn_files([bpmn_file])
     process_ids = parser.get_process_ids()
+    subworkflows = {k: v for k, v in parser.find_all_specs().items() if k not in process_ids}
     ctx.process_ids_by_bpmn_file[bpmn_file] = process_ids
-
+    
     for process_id in process_ids:
         if process_id in ctx.bpmn_file_by_process_id:
             raise Exception(f"Duplicate process_id: {process_id}")
@@ -60,6 +62,7 @@ def parse_bpmn_file(bpmn_file, ctx):
         
         ctx.bpmn_file_by_process_id[process_id] = bpmn_file
         ctx.process_spec_by_id[process_id] = process_spec
+        ctx.subworkflows_by_process_id[process_id] = subworkflows
         find_called_element_ids(process_id, process_spec, ctx)
 
 def spec_json_filename(bpmn_file, i, specs_dir):
@@ -71,6 +74,7 @@ def serialize_workflow_specs_for_process_id(process_id, ctx):
     process = ctx.process_spec_by_id[process_id]
     called_element_ids = ctx.called_element_ids_by_process_id.get(process_id, [])
     subprocesses = {id: ctx.process_spec_by_id[id] for id in called_element_ids}
+    subprocesses.update(ctx.subworkflows_by_process_id[process_id])
     workflow = BpmnWorkflow(process, subprocesses)
     workflow_dct = serializer.to_dict(workflow)
     workflow_specs_dct = {
@@ -121,14 +125,7 @@ def generate_specs_mk(ctx):
     
     
 def generate_output_files(bpmn_files, specs_dir):
-    ctx = ParsingContext(
-        process_ids_by_bpmn_file = {},
-        bpmn_file_by_process_id = {},
-        process_spec_by_id = {},
-        called_element_ids_by_process_id = {},
-        process_id_by_json_file = {},
-        json_file_by_process_id = {},
-    )
+    ctx = ParsingContext()
     
     for bpmn_file in bpmn_files:
         parse_bpmn_file(bpmn_file, ctx)

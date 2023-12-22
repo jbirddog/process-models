@@ -143,5 +143,149 @@
     },
     "typename": "BpmnProcessSpec"
   },
-  "subprocess_specs": {}
+  "subprocess_specs": {
+    "Activity_12x6czg": {
+      "correlation_keys": {},
+      "data_objects": {},
+      "description": "Activity_12x6czg",
+      "file": "bpmn/test-cases/simple-subprocess/simple_subprocess.bpmn",
+      "io_specification": null,
+      "name": "Activity_12x6czg",
+      "task_specs": {
+        "Activity_12x6czg.EndJoin": {
+          "bpmn_id": null,
+          "bpmn_name": null,
+          "data_input_associations": [],
+          "data_output_associations": [],
+          "description": "BPMN Task",
+          "documentation": null,
+          "inputs": [
+            "Event_0ss9ta1"
+          ],
+          "io_specification": null,
+          "lane": null,
+          "lookahead": 2,
+          "manual": false,
+          "name": "Activity_12x6czg.EndJoin",
+          "outputs": [
+            "End"
+          ],
+          "typename": "_EndJoin"
+        },
+        "Activity_1qrv734": {
+          "bpmn_id": "Activity_1qrv734",
+          "bpmn_name": null,
+          "data_input_associations": [],
+          "data_output_associations": [],
+          "description": "Script Task",
+          "documentation": null,
+          "extensions": {},
+          "inputs": [
+            "Event_14kazuf"
+          ],
+          "io_specification": null,
+          "lane": null,
+          "lookahead": 2,
+          "manual": false,
+          "name": "Activity_1qrv734",
+          "outputs": [
+            "Event_0ss9ta1"
+          ],
+          "postscript": null,
+          "prescript": null,
+          "script": "x=1",
+          "typename": "ScriptTask"
+        },
+        "End": {
+          "bpmn_id": null,
+          "bpmn_name": null,
+          "data_input_associations": [],
+          "data_output_associations": [],
+          "description": "BPMN Task",
+          "documentation": null,
+          "inputs": [
+            "Activity_12x6czg.EndJoin"
+          ],
+          "io_specification": null,
+          "lane": null,
+          "lookahead": 2,
+          "manual": false,
+          "name": "End",
+          "outputs": [],
+          "typename": "SimpleBpmnTask"
+        },
+        "Event_0ss9ta1": {
+          "bpmn_id": "Event_0ss9ta1",
+          "bpmn_name": null,
+          "data_input_associations": [],
+          "data_output_associations": [],
+          "description": "Default End Event",
+          "documentation": null,
+          "event_definition": {
+            "description": "Default",
+            "name": null,
+            "typename": "NoneEventDefinition"
+          },
+          "extensions": {},
+          "inputs": [
+            "Activity_1qrv734"
+          ],
+          "io_specification": null,
+          "lane": null,
+          "lookahead": 2,
+          "manual": false,
+          "name": "Event_0ss9ta1",
+          "outputs": [
+            "Activity_12x6czg.EndJoin"
+          ],
+          "typename": "EndEvent"
+        },
+        "Event_14kazuf": {
+          "bpmn_id": "Event_14kazuf",
+          "bpmn_name": null,
+          "data_input_associations": [],
+          "data_output_associations": [],
+          "description": "Default Start Event",
+          "documentation": null,
+          "event_definition": {
+            "description": "Default",
+            "name": null,
+            "typename": "NoneEventDefinition"
+          },
+          "extensions": {},
+          "inputs": [
+            "Start"
+          ],
+          "io_specification": null,
+          "lane": null,
+          "lookahead": 2,
+          "manual": false,
+          "name": "Event_14kazuf",
+          "outputs": [
+            "Activity_1qrv734"
+          ],
+          "typename": "StartEvent"
+        },
+        "Start": {
+          "bpmn_id": null,
+          "bpmn_name": null,
+          "data_input_associations": [],
+          "data_output_associations": [],
+          "description": "BPMN Task",
+          "documentation": null,
+          "inputs": [],
+          "io_specification": null,
+          "lane": null,
+          "lookahead": 2,
+          "manual": false,
+          "name": "Start",
+          "outputs": [
+            "Event_14kazuf"
+          ],
+          "typename": "BpmnStartTask"
+        }
+      },
+      "typename": "BpmnProcessSpec"
+    }
+  }
 }
