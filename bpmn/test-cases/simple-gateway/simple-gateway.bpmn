@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="simple_gateway" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0bpd7l8</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_1h9h8qo" default="Flow_188lqer">
+      <bpmn:incoming>Flow_0bpd7l8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0s1dgd4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_188lqer</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0bpd7l8" sourceRef="StartEvent_1" targetRef="Gateway_1h9h8qo" />
+    <bpmn:sequenceFlow id="Flow_0s1dgd4" sourceRef="Gateway_1h9h8qo" targetRef="Activity_0xo7xir">
+      <bpmn:conditionExpression>True</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_188lqer" sourceRef="Gateway_1h9h8qo" targetRef="Activity_0lvogdb" />
+    <bpmn:exclusiveGateway id="Gateway_1bumgmi">
+      <bpmn:incoming>Flow_1oml9os</bpmn:incoming>
+      <bpmn:incoming>Flow_1bgarif</bpmn:incoming>
+      <bpmn:outgoing>Flow_00a3qhg</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1oml9os" sourceRef="Activity_0lvogdb" targetRef="Gateway_1bumgmi" />
+    <bpmn:sequenceFlow id="Flow_1bgarif" sourceRef="Activity_0xo7xir" targetRef="Gateway_1bumgmi" />
+    <bpmn:endEvent id="Event_0rbgfrc">
+      <bpmn:incoming>Flow_00a3qhg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_00a3qhg" sourceRef="Gateway_1bumgmi" targetRef="Event_0rbgfrc" />
+    <bpmn:manualTask id="Activity_0lvogdb">
+      <bpmn:extensionElements>
+        <spiffworkflow:instructionsForEndUser>This should not have run.</spiffworkflow:instructionsForEndUser>
+        <spiffworkflow:preScript />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_188lqer</bpmn:incoming>
+      <bpmn:outgoing>Flow_1oml9os</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:scriptTask id="Activity_0xo7xir">
+      <bpmn:incoming>Flow_0s1dgd4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bgarif</bpmn:outgoing>
+      <bpmn:script>x=1</bpmn:script>
+    </bpmn:scriptTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="simple_gateway">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="-178" y="-18" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1h9h8qo_di" bpmnElement="Gateway_1h9h8qo" isMarkerVisible="true">
+        <dc:Bounds x="-65" y="-25" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1bumgmi_di" bpmnElement="Gateway_1bumgmi" isMarkerVisible="true">
+        <dc:Bounds x="235" y="-25" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rbgfrc_di" bpmnElement="Event_0rbgfrc">
+        <dc:Bounds x="362" y="-18" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rmz1lb_di" bpmnElement="Activity_0lvogdb">
+        <dc:Bounds x="60" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ef8qhk_di" bpmnElement="Activity_0xo7xir">
+        <dc:Bounds x="60" y="-110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0bpd7l8_di" bpmnElement="Flow_0bpd7l8">
+        <di:waypoint x="-142" y="0" />
+        <di:waypoint x="-65" y="0" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0s1dgd4_di" bpmnElement="Flow_0s1dgd4">
+        <di:waypoint x="-40" y="-25" />
+        <di:waypoint x="-40" y="-70" />
+        <di:waypoint x="60" y="-70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_188lqer_di" bpmnElement="Flow_188lqer">
+        <di:waypoint x="-40" y="25" />
+        <di:waypoint x="-40" y="70" />
+        <di:waypoint x="60" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oml9os_di" bpmnElement="Flow_1oml9os">
+        <di:waypoint x="160" y="70" />
+        <di:waypoint x="260" y="70" />
+        <di:waypoint x="260" y="25" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bgarif_di" bpmnElement="Flow_1bgarif">
+        <di:waypoint x="160" y="-70" />
+        <di:waypoint x="260" y="-70" />
+        <di:waypoint x="260" y="-25" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00a3qhg_di" bpmnElement="Flow_00a3qhg">
+        <di:waypoint x="285" y="0" />
+        <di:waypoint x="362" y="0" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

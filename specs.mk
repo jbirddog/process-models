@@ -1,3 +1,4 @@
+SPECS_FILE_simple_gateway := specs/test-cases/simple-gateway/simple-gateway.json
 SPECS_FILE_coin-gecko_simple-price := specs/test-cases/http-v2-connector-test/httpv2.json
 SPECS_FILE_Process_p4pfxhq := specs/test-cases/simple-call-activity/simple_call_activity.json
 SPECS_FILE_no_tasks := specs/test-cases/no-tasks/no-tasks.json

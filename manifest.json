@@ -12,7 +12,8 @@
     "Process_w13g1wd": "bpmn/test-cases/madhu-timer/madhutimertask.bpmn",
     "SingleTask_Process": "bpmn/test-cases/single-task/single_task.bpmn",
     "coin-gecko_simple-price": "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn",
-    "no_tasks": "bpmn/test-cases/no-tasks/no-tasks.bpmn"
+    "no_tasks": "bpmn/test-cases/no-tasks/no-tasks.bpmn",
+    "simple_gateway": "bpmn/test-cases/simple-gateway/simple-gateway.bpmn"
   },
   "called_element_ids_by_process_id": {
     "Process_048urbd": [
@@ -42,6 +43,7 @@
     "specs/test-cases/nested-call-activities/nested_call_activity.json": "Process_cqu23d1",
     "specs/test-cases/no-tasks/no-tasks.json": "no_tasks",
     "specs/test-cases/simple-call-activity/simple_call_activity.json": "Process_p4pfxhq",
+    "specs/test-cases/simple-gateway/simple-gateway.json": "simple_gateway",
     "specs/test-cases/simple-subprocess/simple_subprocess.json": "Process_vv0fdgv",
     "specs/test-cases/single-task/single_task.json": "SingleTask_Process",
     "specs/test-cases/start-timer1/start-timer1.json": "Process_84evfap"
@@ -77,6 +79,9 @@
     "bpmn/test-cases/simple-call-activity/simple_call_activity.bpmn": [
       "Process_p4pfxhq"
     ],
+    "bpmn/test-cases/simple-gateway/simple-gateway.bpmn": [
+      "simple_gateway"
+    ],
     "bpmn/test-cases/simple-subprocess/simple_subprocess.bpmn": [
       "Process_vv0fdgv"
     ],
@@ -100,6 +105,7 @@
     "Process_w13g1wd": "specs/test-cases/madhu-timer/madhutimertask.json",
     "SingleTask_Process": "specs/test-cases/single-task/single_task.json",
     "coin-gecko_simple-price": "specs/test-cases/http-v2-connector-test/httpv2.json",
-    "no_tasks": "specs/test-cases/no-tasks/no-tasks.json"
+    "no_tasks": "specs/test-cases/no-tasks/no-tasks.json",
+    "simple_gateway": "specs/test-cases/simple-gateway/simple-gateway.json"
   }
 }
