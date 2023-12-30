@@ -1,0 +1,237 @@
+{
+  "serializer_version": "jbirddog/process-models",
+  "spec": {
+    "correlation_keys": {},
+    "data_objects": {},
+    "description": "simple_gateway",
+    "file": "bpmn/test-cases/simple-gateway/simple-gateway.bpmn",
+    "io_specification": null,
+    "name": "simple_gateway",
+    "task_specs": {
+      "Activity_0lvogdb": {
+        "bpmn_id": "Activity_0lvogdb",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Manual Task",
+        "documentation": null,
+        "extensions": {
+          "instructionsForEndUser": "This should not have run.",
+          "preScript": null
+        },
+        "inputs": [
+          "Gateway_1h9h8qo"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": true,
+        "name": "Activity_0lvogdb",
+        "outputs": [
+          "Gateway_1bumgmi"
+        ],
+        "postscript": null,
+        "prescript": null,
+        "typename": "ManualTask"
+      },
+      "Activity_0xo7xir": {
+        "bpmn_id": "Activity_0xo7xir",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Script Task",
+        "documentation": null,
+        "extensions": {},
+        "inputs": [
+          "Gateway_1h9h8qo"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Activity_0xo7xir",
+        "outputs": [
+          "Gateway_1bumgmi"
+        ],
+        "postscript": null,
+        "prescript": null,
+        "script": "x=1",
+        "typename": "ScriptTask"
+      },
+      "End": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "simple_gateway.EndJoin"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "End",
+        "outputs": [],
+        "typename": "SimpleBpmnTask"
+      },
+      "Event_0rbgfrc": {
+        "bpmn_id": "Event_0rbgfrc",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Default End Event",
+        "documentation": null,
+        "event_definition": {
+          "description": "Default",
+          "name": null,
+          "typename": "NoneEventDefinition"
+        },
+        "extensions": {},
+        "inputs": [
+          "Gateway_1bumgmi"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Event_0rbgfrc",
+        "outputs": [
+          "simple_gateway.EndJoin"
+        ],
+        "typename": "EndEvent"
+      },
+      "Gateway_1bumgmi": {
+        "bpmn_id": "Gateway_1bumgmi",
+        "bpmn_name": null,
+        "choice": null,
+        "cond_task_specs": [
+          {
+            "condition": null,
+            "task_spec": "Event_0rbgfrc"
+          }
+        ],
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "default_task_spec": "Event_0rbgfrc",
+        "description": "Exclusive Gateway",
+        "documentation": null,
+        "extensions": {},
+        "inputs": [
+          "Activity_0xo7xir",
+          "Activity_0lvogdb"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Gateway_1bumgmi",
+        "outputs": [
+          "Event_0rbgfrc"
+        ],
+        "typename": "ExclusiveGateway"
+      },
+      "Gateway_1h9h8qo": {
+        "bpmn_id": "Gateway_1h9h8qo",
+        "bpmn_name": null,
+        "choice": null,
+        "cond_task_specs": [
+          {
+            "condition": "True",
+            "task_spec": "Activity_0xo7xir"
+          },
+          {
+            "condition": null,
+            "task_spec": "Activity_0lvogdb"
+          }
+        ],
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "default_task_spec": "Activity_0lvogdb",
+        "description": "Exclusive Gateway",
+        "documentation": null,
+        "extensions": {},
+        "inputs": [
+          "StartEvent_1"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Gateway_1h9h8qo",
+        "outputs": [
+          "Activity_0xo7xir",
+          "Activity_0lvogdb"
+        ],
+        "typename": "ExclusiveGateway"
+      },
+      "Start": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Start",
+        "outputs": [
+          "StartEvent_1"
+        ],
+        "typename": "BpmnStartTask"
+      },
+      "StartEvent_1": {
+        "bpmn_id": "StartEvent_1",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Default Start Event",
+        "documentation": null,
+        "event_definition": {
+          "description": "Default",
+          "name": null,
+          "typename": "NoneEventDefinition"
+        },
+        "extensions": {},
+        "inputs": [
+          "Start"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "StartEvent_1",
+        "outputs": [
+          "Gateway_1h9h8qo"
+        ],
+        "typename": "StartEvent"
+      },
+      "simple_gateway.EndJoin": {
+        "bpmn_id": null,
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "BPMN Task",
+        "documentation": null,
+        "inputs": [
+          "Event_0rbgfrc"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "simple_gateway.EndJoin",
+        "outputs": [
+          "End"
+        ],
+        "typename": "_EndJoin"
+      }
+    },
+    "typename": "BpmnProcessSpec"
+  },
+  "subprocess_specs": {}
+}
