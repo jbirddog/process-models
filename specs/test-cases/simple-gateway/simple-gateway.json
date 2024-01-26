@@ -34,6 +34,30 @@
         "prescript": null,
         "typename": "ManualTask"
       },
+      "Activity_0myxqrc": {
+        "bpmn_id": "Activity_0myxqrc",
+        "bpmn_name": null,
+        "data_input_associations": [],
+        "data_output_associations": [],
+        "description": "Script Task",
+        "documentation": null,
+        "extensions": {},
+        "inputs": [
+          "StartEvent_1"
+        ],
+        "io_specification": null,
+        "lane": null,
+        "lookahead": 2,
+        "manual": false,
+        "name": "Activity_0myxqrc",
+        "outputs": [
+          "Gateway_1h9h8qo"
+        ],
+        "postscript": null,
+        "prescript": null,
+        "script": "var_to_test = 11",
+        "typename": "ScriptTask"
+      },
       "Activity_0xo7xir": {
         "bpmn_id": "Activity_0xo7xir",
         "bpmn_name": null,
@@ -55,7 +79,7 @@
         ],
         "postscript": null,
         "prescript": null,
-        "script": "x=1",
+        "script": "happy_path = 1",
         "typename": "ScriptTask"
       },
       "End": {
@@ -138,7 +162,7 @@
         "choice": null,
         "cond_task_specs": [
           {
-            "condition": "True",
+            "condition": "var_to_test == 11",
             "task_spec": "Activity_0xo7xir"
           },
           {
@@ -153,7 +177,7 @@
         "documentation": null,
         "extensions": {},
         "inputs": [
-          "StartEvent_1"
+          "Activity_0myxqrc"
         ],
         "io_specification": null,
         "lane": null,
@@ -206,7 +230,7 @@
         "manual": false,
         "name": "StartEvent_1",
         "outputs": [
-          "Gateway_1h9h8qo"
+          "Activity_0myxqrc"
         ],
         "typename": "StartEvent"
       },
