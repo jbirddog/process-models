@@ -10,6 +10,7 @@
     "Process_sypm122": "bpmn/test-cases/countries-and-cities/country_cities.bpmn",
     "Process_vv0fdgv": "bpmn/test-cases/simple-subprocess/simple_subprocess.bpmn",
     "Process_w13g1wd": "bpmn/test-cases/madhu-timer/madhutimertask.bpmn",
+    "Process_ynixgwm": "bpmn/test-cases/inclusive-gateway/inclusive-gateway.bpmn",
     "SingleTask_Process": "bpmn/test-cases/single-task/single_task.bpmn",
     "coin-gecko_simple-price": "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn",
     "no_tasks": "bpmn/test-cases/no-tasks/no-tasks.bpmn",
@@ -37,6 +38,7 @@
     "specs/test-cases/countries-and-cities/country_cities.json": "Process_sypm122",
     "specs/test-cases/cycle-start-timer/cycle-start-timer.json": "Process_fwplcm1",
     "specs/test-cases/http-v2-connector-test/httpv2.json": "coin-gecko_simple-price",
+    "specs/test-cases/inclusive-gateway/inclusive-gateway.json": "Process_ynixgwm",
     "specs/test-cases/madhu-timer/madhutimertask.json": "Process_w13g1wd",
     "specs/test-cases/manual-tasks/manual_tasks.json": "Process_diu8ta2",
     "specs/test-cases/multiple-call-activities/multiple_call_activities.json": "Process_90mmqlw",
@@ -60,6 +62,9 @@
     ],
     "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn": [
       "coin-gecko_simple-price"
+    ],
+    "bpmn/test-cases/inclusive-gateway/inclusive-gateway.bpmn": [
+      "Process_ynixgwm"
     ],
     "bpmn/test-cases/madhu-timer/madhutimertask.bpmn": [
       "Process_w13g1wd"
@@ -103,6 +108,7 @@
     "Process_sypm122": "specs/test-cases/countries-and-cities/country_cities.json",
     "Process_vv0fdgv": "specs/test-cases/simple-subprocess/simple_subprocess.json",
     "Process_w13g1wd": "specs/test-cases/madhu-timer/madhutimertask.json",
+    "Process_ynixgwm": "specs/test-cases/inclusive-gateway/inclusive-gateway.json",
     "SingleTask_Process": "specs/test-cases/single-task/single_task.json",
     "coin-gecko_simple-price": "specs/test-cases/http-v2-connector-test/httpv2.json",
     "no_tasks": "specs/test-cases/no-tasks/no-tasks.json",

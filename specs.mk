@@ -8,6 +8,7 @@ SPECS_FILE_Process_90mmqlw := specs/test-cases/multiple-call-activities/multiple
 SPECS_FILE_Process_vv0fdgv := specs/test-cases/simple-subprocess/simple_subprocess.json
 SPECS_FILE_Process_cqu23d1 := specs/test-cases/nested-call-activities/nested_call_activity.json
 SPECS_FILE_Process_84evfap := specs/test-cases/start-timer1/start-timer1.json
+SPECS_FILE_Process_ynixgwm := specs/test-cases/inclusive-gateway/inclusive-gateway.json
 SPECS_FILE_Process_fwplcm1 := specs/test-cases/cycle-start-timer/cycle-start-timer.json
 SPECS_FILE_Process_048urbd := specs/test-cases/call-activity-with-manual-tasks/call_manual_tasks.json
 SPECS_FILE_Process_diu8ta2 := specs/test-cases/manual-tasks/manual_tasks.json
