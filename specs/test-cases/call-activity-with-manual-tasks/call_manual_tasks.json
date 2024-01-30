@@ -186,7 +186,7 @@
           "description": "Manual Task",
           "documentation": null,
           "extensions": {
-            "postScript": "post_script_var = 2"
+            "postScript": "post_script_var = 2\ndel pre_script_var"
           },
           "inputs": [
             "Activity_1h7gm30"
@@ -199,7 +199,7 @@
           "outputs": [
             "Event_0iozjmo"
           ],
-          "postscript": "post_script_var = 2",
+          "postscript": "post_script_var = 2\ndel pre_script_var",
           "prescript": null,
           "typename": "ManualTask"
         },
