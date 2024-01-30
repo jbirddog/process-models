@@ -209,7 +209,7 @@
           "documentation": null,
           "extensions": {
             "instructionsForEndUser": "These are the instructions for the first manual task.",
-            "preScript": null
+            "preScript": "pre_script_var = 1"
           },
           "inputs": [
             "StartEvent_1"
@@ -223,7 +223,7 @@
             "Activity_1n7p3m4"
           ],
           "postscript": null,
-          "prescript": null,
+          "prescript": "pre_script_var = 1",
           "typename": "ManualTask"
         },
         "Activity_1n7p3m4": {
@@ -233,7 +233,9 @@
           "data_output_associations": [],
           "description": "Manual Task",
           "documentation": null,
-          "extensions": {},
+          "extensions": {
+            "postScript": "post_script_var = 2"
+          },
           "inputs": [
             "Activity_1h7gm30"
           ],
@@ -245,7 +247,7 @@
           "outputs": [
             "Event_0iozjmo"
           ],
-          "postscript": null,
+          "postscript": "post_script_var = 2",
           "prescript": null,
           "typename": "ManualTask"
         },
