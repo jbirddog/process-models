@@ -20,7 +20,8 @@
     </bpmn:manualTask>
     <bpmn:manualTask id="Activity_1n7p3m4">
       <bpmn:extensionElements>
-        <spiffworkflow:postScript>post_script_var = 2</spiffworkflow:postScript>
+        <spiffworkflow:postScript>post_script_var = 2
+del pre_script_var</spiffworkflow:postScript>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0lfoegg</bpmn:incoming>
       <bpmn:outgoing>Flow_01cxb4l</bpmn:outgoing>
