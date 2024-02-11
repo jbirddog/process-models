@@ -6,6 +6,7 @@ SPECS_FILE_Process_w13g1wd := specs/test-cases/madhu-timer/madhutimertask.json
 SPECS_FILE_Process_sypm122 := specs/test-cases/countries-and-cities/country_cities.json
 SPECS_FILE_Process_90mmqlw := specs/test-cases/multiple-call-activities/multiple_call_activities.json
 SPECS_FILE_Process_vv0fdgv := specs/test-cases/simple-subprocess/simple_subprocess.json
+SPECS_FILE_dict_tests := specs/test-cases/dict-tests/dict-tests.json
 SPECS_FILE_Process_cqu23d1 := specs/test-cases/nested-call-activities/nested_call_activity.json
 SPECS_FILE_Process_84evfap := specs/test-cases/start-timer1/start-timer1.json
 SPECS_FILE_Process_ynixgwm := specs/test-cases/inclusive-gateway/inclusive-gateway.json

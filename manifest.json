@@ -13,6 +13,7 @@
     "Process_ynixgwm": "bpmn/test-cases/inclusive-gateway/inclusive-gateway.bpmn",
     "SingleTask_Process": "bpmn/test-cases/single-task/single_task.bpmn",
     "coin-gecko_simple-price": "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn",
+    "dict_tests": "bpmn/test-cases/dict-tests/dict-tests.bpmn",
     "no_tasks": "bpmn/test-cases/no-tasks/no-tasks.bpmn",
     "simple_gateway": "bpmn/test-cases/simple-gateway/simple-gateway.bpmn"
   },
@@ -37,6 +38,7 @@
     "specs/test-cases/call-activity-with-manual-tasks/call_manual_tasks.json": "Process_048urbd",
     "specs/test-cases/countries-and-cities/country_cities.json": "Process_sypm122",
     "specs/test-cases/cycle-start-timer/cycle-start-timer.json": "Process_fwplcm1",
+    "specs/test-cases/dict-tests/dict-tests.json": "dict_tests",
     "specs/test-cases/http-v2-connector-test/httpv2.json": "coin-gecko_simple-price",
     "specs/test-cases/inclusive-gateway/inclusive-gateway.json": "Process_ynixgwm",
     "specs/test-cases/madhu-timer/madhutimertask.json": "Process_w13g1wd",
@@ -59,6 +61,9 @@
     ],
     "bpmn/test-cases/cycle-start-timer/cycle-start-timer.bpmn": [
       "Process_fwplcm1"
+    ],
+    "bpmn/test-cases/dict-tests/dict-tests.bpmn": [
+      "dict_tests"
     ],
     "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn": [
       "coin-gecko_simple-price"
@@ -111,6 +116,7 @@
     "Process_ynixgwm": "specs/test-cases/inclusive-gateway/inclusive-gateway.json",
     "SingleTask_Process": "specs/test-cases/single-task/single_task.json",
     "coin-gecko_simple-price": "specs/test-cases/http-v2-connector-test/httpv2.json",
+    "dict_tests": "specs/test-cases/dict-tests/dict-tests.json",
     "no_tasks": "specs/test-cases/no-tasks/no-tasks.json",
     "simple_gateway": "specs/test-cases/simple-gateway/simple-gateway.json"
   }
