@@ -7,7 +7,7 @@
     <bpmn:sequenceFlow id="Flow_17db3yp" sourceRef="StartEvent_1" targetRef="Activity_0rjlb6d" />
     <bpmn:endEvent id="EndEvent_1">
       <bpmn:extensionElements>
-        <spiffworkflow:instructionsForEndUser>The process instance completed successfully.</spiffworkflow:instructionsForEndUser>
+        <spiffworkflow:instructionsForEndUser>The process instance completed successfully X.</spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0p2kyju</bpmn:incoming>
     </bpmn:endEvent>
