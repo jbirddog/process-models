@@ -22,7 +22,7 @@
       <bpmn:incoming>Flow_1rqv1x1</bpmn:incoming>
       <bpmn:outgoing>Flow_0p2kyju</bpmn:outgoing>
       <bpmn:script>kv_dict = {
-  "bob": 55,
+  "bob": 88,
   "sue": 23,
   "joe": 43,
   "sam": 12,
