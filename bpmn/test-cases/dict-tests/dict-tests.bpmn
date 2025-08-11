@@ -22,9 +22,10 @@
       <bpmn:incoming>Flow_1rqv1x1</bpmn:incoming>
       <bpmn:outgoing>Flow_0p2kyju</bpmn:outgoing>
       <bpmn:script>kv_dict = {
-    "bob": 55,
-    "sue": 23,
-    "joe": 43,
+  "bob": 55,
+  "sue": 23,
+  "joe": 43,
+  "sam": 12,
 }</bpmn:script>
     </bpmn:scriptTask>
   </bpmn:process>
@@ -33,14 +34,14 @@
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="42" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="492" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_014wwzu_di" bpmnElement="Activity_0rjlb6d">
         <dc:Bounds x="110" y="137" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_01bp2zm_di" bpmnElement="Activity_02ziaqh">
         <dc:Bounds x="240" y="137" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
-        <dc:Bounds x="492" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">
         <di:waypoint x="78" y="177" />
