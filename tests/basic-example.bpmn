@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="Process_1770033215613" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1770033215613">
+      <bpmn:outgoing>Flow1_1770033215613</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1770033215613">
+      <bpmn:incoming>Flow2_1770033215613</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow1_1770033215613" sourceRef="StartEvent_1770033215613" targetRef="Activity_0fbik9m" />
+    <bpmn:sequenceFlow id="Flow2_1770033215613" sourceRef="Task_1770033215613" targetRef="EndEvent_1770033215613" />
+    <bpmn:scriptTask id="Task_1770033215613" name="Test Task Data">
+      <bpmn:incoming>Flow_0k87bc6</bpmn:incoming>
+      <bpmn:outgoing>Flow2_1770033215613</bpmn:outgoing>
+      <bpmn:script>def test():
+  import unittest
+
+  class TestTaskData(unittest.TestCase):
+    def test_task_data(self):
+      self.assertEqual(empty_dict, {})
+      self.assertEqual(len(kv_dict), 4)
+      self.assertTrue("bob" in kv_dict)
+      self.assertTrue("joe" in kv_dict)
+      self.assertTrue("sam" in kv_dict)
+      self.assertTrue("sue" in kv_dict)
+
+  s = unittest.defaultTestLoader.loadTestsFromTestCase(TestTaskData)
+  r = unittest.TestResult()
+  s.run(r)
+  print(r.errors)
+  print(r.failures)
+  assert len(r.errors) == 0
+  assert len(r.failures) == 0
+test()</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0k87bc6" sourceRef="Activity_0fbik9m" targetRef="Task_1770033215613" />
+    <bpmn:callActivity id="Activity_0fbik9m" name="dict-tests.bpmn" calledElement="dict_tests">
+      <bpmn:incoming>Flow1_1770033215613</bpmn:incoming>
+      <bpmn:outgoing>Flow_0k87bc6</bpmn:outgoing>
+    </bpmn:callActivity>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1770033215613">
+      <bpmndi:BPMNShape id="EndEvent_1770033215613_di" bpmnElement="EndEvent_1770033215613">
+        <dc:Bounds x="402" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1iitzc2_di" bpmnElement="Task_1770033215613">
+        <dc:Bounds x="260" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1e66771_di" bpmnElement="Activity_0fbik9m">
+        <dc:Bounds x="110" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1770033215613_di" bpmnElement="StartEvent_1770033215613">
+        <dc:Bounds x="2" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow1_1770033215613_di" bpmnElement="Flow1_1770033215613">
+        <di:waypoint x="38" y="160" />
+        <di:waypoint x="110" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow2_1770033215613_di" bpmnElement="Flow2_1770033215613">
+        <di:waypoint x="360" y="160" />
+        <di:waypoint x="402" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0k87bc6_di" bpmnElement="Flow_0k87bc6">
+        <di:waypoint x="210" y="160" />
+        <di:waypoint x="260" y="160" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
