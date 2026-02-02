@@ -1,0 +1,20 @@
+name: Test BPMN
+on:
+  push:
+    branches:
+      - main
+      - testing
+
+jobs:
+  uv-example:
+    name: python
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Run tests
+        run: uv run test.py
