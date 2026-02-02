@@ -42,6 +42,7 @@ class BpmnTestCase(unittest.TestCase):
         self.output = result["output"]
         self.testsRun = result["testsRun"]
         self.wasSuccessful = completed and result["wasSuccessful"]
+        self.assertTrue(self.wasSuccessful)
 
     def runTest(self):
         r = json.loads(advance_workflow(self.specs, {}, None, "greedy", None))
