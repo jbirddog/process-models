@@ -16,10 +16,12 @@
   import unittest
 
   class TestTaskData(unittest.TestCase):
-    def test_task_data(self):
+    def test_empty_dict(self):
       self.assertEqual(empty_dict, {})
+      
+    def test_kv_dict(self):
       self.assertEqual(len(kv_dict), 4)
-      self.assertTrue("bob" in kv_dict)
+      self.assertTrue("Xbob" in kv_dict)
       self.assertTrue("joe" in kv_dict)
       self.assertTrue("sam" in kv_dict)
       self.assertTrue("sue" in kv_dict)
@@ -27,11 +29,16 @@
   s = unittest.defaultTestLoader.loadTestsFromTestCase(TestTaskData)
   r = unittest.TestResult()
   s.run(r)
-  print(r.errors)
+  print(r.testsRun)
   print(r.failures)
-  assert len(r.errors) == 0
-  assert len(r.failures) == 0
-test()</bpmn:script>
+
+  return {
+    "testsRun": r.testsRun,
+    "errors": len(r.errors),
+    "failures": len(r.failures),
+  }
+  
+test_result = test()</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow_0k87bc6" sourceRef="Activity_0fbik9m" targetRef="Task_1770033215613" />
     <bpmn:callActivity id="Activity_0fbik9m" name="dict-tests.bpmn" calledElement="dict_tests">
@@ -41,6 +48,9 @@ test()</bpmn:script>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1770033215613">
+      <bpmndi:BPMNShape id="StartEvent_1770033215613_di" bpmnElement="StartEvent_1770033215613">
+        <dc:Bounds x="2" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1770033215613_di" bpmnElement="EndEvent_1770033215613">
         <dc:Bounds x="402" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -51,9 +61,6 @@ test()</bpmn:script>
       <bpmndi:BPMNShape id="Activity_1e66771_di" bpmnElement="Activity_0fbik9m">
         <dc:Bounds x="110" y="120" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="StartEvent_1770033215613_di" bpmnElement="StartEvent_1770033215613">
-        <dc:Bounds x="2" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow1_1770033215613_di" bpmnElement="Flow1_1770033215613">
         <di:waypoint x="38" y="160" />
