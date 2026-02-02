@@ -8,9 +8,17 @@
 # ]
 # ///
 
+import json
+import unittest
+
 from spiff_arena_common.runner import advance_workflow, specs_from_xml
 
-cases = {
+class BpmnTestCase(unittest.TestCase):
+    def __init__(self, t, deps):
+        self.t = t
+        self.deps = deps
+
+suite = {
     "tests/basic-example.bpmn": [
         "bpmn/test-cases/dict-tests/dict-tests.bpmn",
     ],
@@ -21,10 +29,15 @@ def slurp(file):
         return f.read()
 
 def main():
-    for t, deps in cases.items():
+    for t, deps in suite.items():
         files = [(t, slurp(t))] + [(d, slurp(d)) for d in deps]
         specs, err = specs_from_xml(files)
-        r = advance_workflow(specs, {}, None, "greedy", None)
+        r = json.loads(advance_workflow(specs, {}, None, "greedy", None))
+        print(r)
+        assert r["status"] == "ok"
+        assert r["completed"]
+        test_result = r["result"]["test_result"]
+        assert test_result["failures"] == 0
 
 if __name__ == "__main__":
     main()
