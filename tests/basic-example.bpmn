@@ -30,15 +30,12 @@ def _test():
       self.assertTrue("sue" in kv_dict)
 
   s = unittest.defaultTestLoader.loadTestsFromTestCase(TestTaskData)
-  r = unittest.TestResult()
-  s.run(r)
-  print(r.testsRun)
-  print(r.failures)
-
+  r = unittest.TextTestRunner().run(s)
+  
   return {
     "testsRun": r.testsRun,
-    "errors": len(r.errors),
-    "failures": len(r.failures),
+    "errors": [e[1] for e in r.errors],
+    "failures": [f[1] for f in r.failures],
   }
   
 test_result = _test()</bpmn:script>
