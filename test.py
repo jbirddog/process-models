@@ -8,6 +8,7 @@
 # ]
 # ///
 
+import io
 import json
 import sys
 import unittest
@@ -27,9 +28,7 @@ class BpmnTestCase(unittest.TestCase):
         self.assertTrue(r["completed"])
         self.assertIn("result", r)
         self.assertIn("test_result", r["result"])
-        
-        #test_result = r["result"]["test_result"]
-        #assert test_result["failures"] == 0
+        self.result = r["result"]["test_result"]
 
 cases = {
     "tests/basic-example.bpmn": [
@@ -42,11 +41,15 @@ def slurp(file):
         return f.read()
         
 if __name__ == "__main__":
-    suite = unittest.TestSuite()
+    tests = []
     for t, deps in cases.items():
         files = [(t, slurp(t))] + [(d, slurp(d)) for d in deps]
         specs, err = specs_from_xml(files)
         assert not err
-        suite.addTest(BpmnTestCase(specs))
-    result = unittest.TextTestRunner().run(suite)
+        tests.append(BpmnTestCase(specs))
+    suite = unittest.TestSuite()
+    suite.addTests(tests)
+    output = io.StringIO() 
+    result = unittest.TextTestRunner(stream=output).run(suite)
+    print(output.getvalue())
     sys.exit(not result.wasSuccessful())
