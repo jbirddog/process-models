@@ -36,7 +36,7 @@ def test():
       self.assertEqual(len(kv_dict), 4)
       self.assertTrue("bob" in kv_dict)
       self.assertTrue("joe" in kv_dict)
-      self.assertTrue("sam" in kv_dict)
+      self.assertTrue("sam" in kv_dict, "Expected 'sam' in kv_dict")
       self.assertTrue("sue" in kv_dict)
 
   return runTest(TestTaskData)
