@@ -34,7 +34,7 @@ def test():
       
     def test_kv_dict(self):
       self.assertEqual(len(kv_dict), 4)
-      self.assertTrue("Xbob" in kv_dict)
+      self.assertTrue("bob" in kv_dict)
       self.assertTrue("joe" in kv_dict)
       self.assertTrue("sam" in kv_dict)
       self.assertTrue("sue" in kv_dict)
