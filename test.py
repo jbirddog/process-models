@@ -9,6 +9,7 @@
 # ///
 
 import json
+import sys
 import unittest
 
 from spiff_arena_common.runner import advance_workflow, specs_from_xml
@@ -34,24 +35,13 @@ cases = {
 def slurp(file):
     with open(file) as f:
         return f.read()
-
-def main():
+        
+if __name__ == "__main__":
     suite = unittest.TestSuite()
-    #r = unittest.TestResult()
     for t, deps in cases.items():
         files = [(t, slurp(t))] + [(d, slurp(d)) for d in deps]
         specs, err = specs_from_xml(files)
         assert not err
         suite.addTest(BpmnTestCase(specs))
-    #suite.run(r)
-    unittest.TextTestRunner().run(suite)    
-
-#s = unittest.defaultTestLoader.loadTestsFromTestCase(TestTaskData)
-#r = unittest.TestResult()
-#s.run(r)
-#print(r.testsRun)
-#print(r.failures)
-        
-if __name__ == "__main__":
-    main()
-    
+    result = unittest.TextTestRunner().run(suite)
+    sys.exit(not result.wasSuccessful())
