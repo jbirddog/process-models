@@ -26,7 +26,7 @@
   "bob": 88,
   "sue": 23,
   "joe": 43,
-  "samk": 21,
+  "sam": 21,
 }</bpmn:script>
     </bpmn:scriptTask>
   </bpmn:process>
