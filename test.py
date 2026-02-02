@@ -23,19 +23,31 @@ class BpmnTestCase(unittest.TestCase):
         self.wasSuccessful = False
         super().__init__()
 
+    def parseWorkflowResult(self, r):
+        completed = r.get("completed", False)
+        if completed:
+            self.assertIn("result", r)
+            data = r["result"]
+        else:
+            self.assertIn("pending_tasks", r)
+            pending = r["pending_tasks"]
+            self.assertGreater(len(pending), 0)
+            self.assertIn("data", pending[0])
+            data = pending[0]["data"]
+        self.assertIn("spiff_testResult", data)
+        result = data["spiff_testResult"]
+        self.assertIn("output", result)
+        self.assertIn("testsRun", result)
+        self.assertIn("wasSuccessful", result)
+        self.output = result["output"]
+        self.testsRun = result["testsRun"]
+        self.wasSuccessful = completed and result["wasSuccessful"]
+
     def runTest(self):
         r = json.loads(advance_workflow(self.specs, {}, None, "greedy", None))
         self.assertIn("status", r)
         self.assertEqual(r["status"], "ok")
-        self.assertIn("completed", r)
-        self.assertTrue(r["completed"])
-        self.assertIn("result", r)
-        self.assertIn("test_result", r["result"])
-        result = r["result"]["test_result"]
-        self.output = result["output"]
-        self.testsRun = result["testsRun"]
-        self.wasSuccessful = result["wasSuccessful"]
-        self.assertTrue(self.wasSuccessful)
+        self.parseWorkflowResult(r)
 
 cases = {
     "tests/basic-example.bpmn": [
@@ -56,14 +68,8 @@ if __name__ == "__main__":
         tests.append(BpmnTestCase(specs))
     suite = unittest.TestSuite()
     suite.addTests(tests)
-    output = io.StringIO() 
-    result = unittest.TextTestRunner(stream=output).run(suite)
-
-    for t in tests:
-        if not t.wasSuccessful:
-            print(t.output)
-
-    wasSuccessful = result.wasSuccessful()
-    if wasSuccessful:
-        print(output.getvalue())
-    sys.exit(not wasSuccessful)
+    stream = io.StringIO() 
+    result = unittest.TextTestRunner(stream=stream).run(suite)
+    output = [t.output for t in tests if not t.wasSuccessful and t.output] + [stream.getvalue()]
+    print(output[0])
+    sys.exit(not result.wasSuccessful())
