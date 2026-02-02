@@ -18,6 +18,9 @@ from spiff_arena_common.runner import advance_workflow, specs_from_xml
 class BpmnTestCase(unittest.TestCase):
     def __init__(self, specs):
         self.specs = specs
+        self.output = ""
+        self.testsRun = 0
+        self.wasSuccessful = False
         super().__init__()
 
     def runTest(self):
@@ -28,7 +31,11 @@ class BpmnTestCase(unittest.TestCase):
         self.assertTrue(r["completed"])
         self.assertIn("result", r)
         self.assertIn("test_result", r["result"])
-        self.result = r["result"]["test_result"]
+        result = r["result"]["test_result"]
+        self.output = result["output"]
+        self.testsRun = result["testsRun"]
+        self.wasSuccessful = result["wasSuccessful"]
+        self.assertTrue(self.wasSuccessful)
 
 cases = {
     "tests/basic-example.bpmn": [
@@ -51,5 +58,12 @@ if __name__ == "__main__":
     suite.addTests(tests)
     output = io.StringIO() 
     result = unittest.TextTestRunner(stream=output).run(suite)
-    print(output.getvalue())
-    sys.exit(not result.wasSuccessful())
+
+    for t in tests:
+        if not t.wasSuccessful:
+            print(t.output)
+
+    wasSuccessful = result.wasSuccessful()
+    if wasSuccessful:
+        print(output.getvalue())
+    sys.exit(not wasSuccessful)
