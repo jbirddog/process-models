@@ -13,14 +13,16 @@
       <bpmn:incoming>Flow_0k87bc6</bpmn:incoming>
       <bpmn:outgoing>Flow2_1770033215613</bpmn:outgoing>
       <bpmn:script>def runTest(t):
+  import io
   import unittest
-  
-  r = unittest.TextTestRunner().run(unittest.defaultTestLoader.loadTestsFromTestCase(t))
+
+  output = io.StringIO()
+  r = unittest.TextTestRunner(stream=output).run(unittest.defaultTestLoader.loadTestsFromTestCase(t))
   
   return {
     "testsRun": r.testsRun,
-    "errors": [e[1] for e in r.errors],
-    "failures": [f[1] for f in r.failures],
+    "wasSuccessful": r.wasSuccessful(),
+    "output": output.getvalue(),
   }
 
 def test():
