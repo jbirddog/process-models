@@ -12,10 +12,18 @@
     <bpmn:scriptTask id="Task_1770033215613" name="Test Task Data">
       <bpmn:incoming>Flow_0k87bc6</bpmn:incoming>
       <bpmn:outgoing>Flow2_1770033215613</bpmn:outgoing>
-      <bpmn:script>def test_fail():
-  assert empty_dict != {}
+      <bpmn:script>def runTest(t):
+  import unittest
+  
+  r = unittest.TextTestRunner().run(unittest.defaultTestLoader.loadTestsFromTestCase(t))
+  
+  return {
+    "testsRun": r.testsRun,
+    "errors": [e[1] for e in r.errors],
+    "failures": [f[1] for f in r.failures],
+  }
 
-def _test():
+def test():
   import unittest
 
   class TestTaskData(unittest.TestCase):
@@ -29,16 +37,9 @@ def _test():
       self.assertTrue("sam" in kv_dict)
       self.assertTrue("sue" in kv_dict)
 
-  s = unittest.defaultTestLoader.loadTestsFromTestCase(TestTaskData)
-  r = unittest.TextTestRunner().run(s)
+  return runTest(TestTaskData)
   
-  return {
-    "testsRun": r.testsRun,
-    "errors": [e[1] for e in r.errors],
-    "failures": [f[1] for f in r.failures],
-  }
-  
-test_result = _test()</bpmn:script>
+test_result = test()</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow_0k87bc6" sourceRef="Activity_0fbik9m" targetRef="Task_1770033215613" />
     <bpmn:callActivity id="Activity_0fbik9m" name="dict-tests.bpmn" calledElement="dict_tests">
