@@ -7,10 +7,10 @@
     <bpmn:endEvent id="EndEvent_1770132558798">
       <bpmn:incoming>Flow_1bhqy5q</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow1_1770132558798" sourceRef="StartEvent_1770132558798" targetRef="Task_1770132558798" />
+    <bpmn:sequenceFlow id="Flow1_1770132558798" sourceRef="StartEvent_1770132558798" targetRef="Activity_0d27dhn" />
     <bpmn:sequenceFlow id="Flow2_1770132558798" sourceRef="Task_1770132558798" targetRef="Activity_0f6vlzg" />
     <bpmn:callActivity id="Task_1770132558798" name="Run ut" calledElement="Process_1770128055928">
-      <bpmn:incoming>Flow1_1770132558798</bpmn:incoming>
+      <bpmn:incoming>Flow_1fbs4ll</bpmn:incoming>
       <bpmn:outgoing>Flow2_1770132558798</bpmn:outgoing>
     </bpmn:callActivity>
     <bpmn:sequenceFlow id="Flow_1a46c5r" sourceRef="Activity_0f6vlzg" targetRef="Gateway_1gvxdru" />
@@ -35,7 +35,7 @@ def test():
 
   class TestTaskData(unittest.TestCase):
     def test_var(self):
-      self.assertEqual(some_field, "jj")
+      self.assertEqual(some_field, spiff_testFixture["expected"]["some_field"])
       
   return runTest(TestTaskData)
   
@@ -64,11 +64,24 @@ spiff_testResult = test()</bpmn:script>
       <bpmn:incoming>Flow_00tp9fz</bpmn:incoming>
       <bpmn:outgoing>Flow_0lmdtk5</bpmn:outgoing>
     </bpmn:manualTask>
+    <bpmn:sequenceFlow id="Flow_1fbs4ll" sourceRef="Activity_0d27dhn" targetRef="Task_1770132558798" />
+    <bpmn:scriptTask id="Activity_0d27dhn" name="Load Test Fixture">
+      <bpmn:incoming>Flow1_1770132558798</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fbs4ll</bpmn:outgoing>
+      <bpmn:script>spiff_testFixture = {
+  "data": [
+    { "some_field": "jj" }
+  ],
+  "expected": {
+    "some_field": "jj",
+  }
+}</bpmn:script>
+    </bpmn:scriptTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1770132558798">
       <bpmndi:BPMNShape id="StartEvent_1770132558798_di" bpmnElement="StartEvent_1770132558798">
-        <dc:Bounds x="182" y="142" width="36" height="36" />
+        <dc:Bounds x="32" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1770132558798_di" bpmnElement="EndEvent_1770132558798">
         <dc:Bounds x="802" y="142" width="36" height="36" />
@@ -90,9 +103,13 @@ spiff_testResult = test()</bpmn:script>
       <bpmndi:BPMNShape id="Activity_11mpvf0_di" bpmnElement="Activity_0mg5d2b">
         <dc:Bounds x="600" y="210" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0l1t70p_di" bpmnElement="Activity_0d27dhn">
+        <dc:Bounds x="120" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow1_1770132558798_di" bpmnElement="Flow1_1770132558798">
-        <di:waypoint x="218" y="160" />
-        <di:waypoint x="260" y="160" />
+        <di:waypoint x="68" y="160" />
+        <di:waypoint x="120" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow2_1770132558798_di" bpmnElement="Flow2_1770132558798">
         <di:waypoint x="360" y="160" />
@@ -119,6 +136,10 @@ spiff_testResult = test()</bpmn:script>
         <di:waypoint x="700" y="250" />
         <di:waypoint x="740" y="250" />
         <di:waypoint x="740" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fbs4ll_di" bpmnElement="Flow_1fbs4ll">
+        <di:waypoint x="220" y="160" />
+        <di:waypoint x="260" y="160" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
