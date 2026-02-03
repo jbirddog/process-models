@@ -69,7 +69,7 @@ spiff_testResult = test()</bpmn:script>
       <bpmn:incoming>Flow1_1770132558798</bpmn:incoming>
       <bpmn:outgoing>Flow_1fbs4ll</bpmn:outgoing>
       <bpmn:script>spiff_testFixture = {
-  "data": [
+  "dataStack": [
     { "some_field": "jj" }
   ],
   "expected": {
