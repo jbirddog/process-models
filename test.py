@@ -72,6 +72,9 @@ cases = {
     "bpmn/test-cases/manual-tasks/test-mt.bpmn": [
         "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
     ],
+    "bpmn/test-cases/ut/test.bpmn": [
+        "bpmn/test-cases/ut/ut.bpmn",
+    ],
 }
 
 def slurp(file):
