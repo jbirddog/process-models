@@ -15,6 +15,11 @@ import unittest
 
 from spiff_arena_common.runner import advance_workflow, specs_from_xml
 
+def pending_task(r):
+    for p in r.get("pending_tasks", []):
+        if p["task_spec"]["manual"]:
+            return p
+
 class BpmnTestCase(unittest.TestCase):
     def __init__(self, specs):
         self.specs = specs
@@ -45,7 +50,17 @@ class BpmnTestCase(unittest.TestCase):
         self.assertTrue(self.wasSuccessful)
 
     def runTest(self):
-        r = json.loads(advance_workflow(self.specs, {}, None, "greedy", None))
+        iters = 0
+        task = None
+        state = {}
+        while iters < 100:
+            iters = iters + 1
+            r = json.loads(advance_workflow(self.specs, state, task, "greedy", None))
+            if "result" in r:
+                break
+            task = pending_task(r)
+            state = r["state"]
+
         self.assertIn("status", r)
         self.assertEqual(r["status"], "ok")
         self.parseWorkflowResult(r)
@@ -53,6 +68,9 @@ class BpmnTestCase(unittest.TestCase):
 cases = {
     "bpmn/test-cases/dict-tests/test.bpmn": [
         "bpmn/test-cases/dict-tests/dict-tests.bpmn",
+    ],
+    "bpmn/test-cases/manual-tasks/test-mt.bpmn": [
+        "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
     ],
 }
 
