@@ -61,15 +61,7 @@ class BpmnTestCase(unittest.TestCase):
         iters = 0
         task = None
         state = {}
-        start_params = {
-        #    "data": {
-        #        "spiff_testFixture": {
-        #            "data": [
-        #                { "some_field": "jj" },
-        #            ],
-        #        },
-        #    },
-        }
+        start_params = {}
         while iters < 100:
             iters = iters + 1
             r = json.loads(advance_workflow(self.specs, state, task, "greedy", start_params))
