@@ -12,17 +12,19 @@
     <bpmn:scriptTask id="Task_1770033215613" name="Test Task Data">
       <bpmn:incoming>Flow_0k87bc6</bpmn:incoming>
       <bpmn:outgoing>Flow2_1770033215613</bpmn:outgoing>
-      <bpmn:script>def runTest(t):
+      <bpmn:script>def runTests(tests):
   import io
   import unittest
 
-  output = io.StringIO()
-  r = unittest.TextTestRunner(stream=output).run(unittest.defaultTestLoader.loadTestsFromTestCase(t))
+  suite = unittest.TestSuite()
+  suite.addTests(tests)
+  stream = io.StringIO()
+  result = unittest.TextTestRunner(stream=stream).run(suite)
   
   return {
-    "testsRun": r.testsRun,
-    "wasSuccessful": r.wasSuccessful(),
-    "output": output.getvalue(),
+    "testsRun": result.testsRun,
+    "wasSuccessful": result.wasSuccessful(),
+    "output": stream.getvalue(),
   }
 
 def test():
@@ -39,7 +41,10 @@ def test():
       self.assertTrue("sam" in kv_dict, "Expected 'sam' in kv_dict")
       self.assertTrue("sue" in kv_dict)
 
-  return runTest(TestTaskData)
+  return runTests([
+    TestTaskData("test_empty_dict"),
+    TestTaskData("test_kv_dict"),
+  ])
   
 spiff_testResult = test()</bpmn:script>
     </bpmn:scriptTask>

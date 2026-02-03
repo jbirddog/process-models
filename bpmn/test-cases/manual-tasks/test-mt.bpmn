@@ -17,27 +17,29 @@
     <bpmn:scriptTask id="Activity_1ifkyxd" name="Test Results">
       <bpmn:incoming>Flow2_1770121675349</bpmn:incoming>
       <bpmn:outgoing>Flow_0g7mzwp</bpmn:outgoing>
-      <bpmn:script>def runTest(t):
+      <bpmn:script>def runTests(tests):
   import io
   import unittest
 
-  output = io.StringIO()
-  r = unittest.TextTestRunner(stream=output).run(unittest.defaultTestLoader.loadTestsFromTestCase(t))
+  suite = unittest.TestSuite()
+  suite.addTests(tests)
+  stream = io.StringIO()
+  result = unittest.TextTestRunner(stream=stream).run(suite)
   
   return {
-    "testsRun": r.testsRun,
-    "wasSuccessful": r.wasSuccessful(),
-    "output": output.getvalue(),
+    "testsRun": result.testsRun,
+    "wasSuccessful": result.wasSuccessful(),
+    "output": stream.getvalue(),
   }
 
 def test():
   import unittest
 
   class TestTaskData(unittest.TestCase):
-    def test_var(self):
+    def runTest(self):
       self.assertEqual(post_script_var, 2)
       
-  return runTest(TestTaskData)
+  return runTests([TestTaskData()])
   
 spiff_testResult = test()</bpmn:script>
     </bpmn:scriptTask>
@@ -78,6 +80,9 @@ spiff_testResult = test()</bpmn:script>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1770121675349">
+      <bpmndi:BPMNShape id="StartEvent_1770121675349_di" bpmnElement="StartEvent_1770121675349">
+        <dc:Bounds x="32" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1770121675349_di" bpmnElement="EndEvent_1770121675349">
         <dc:Bounds x="792" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -97,9 +102,6 @@ spiff_testResult = test()</bpmn:script>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1guhrf3_di" bpmnElement="Activity_1miis0l">
         <dc:Bounds x="600" y="230" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="StartEvent_1770121675349_di" bpmnElement="StartEvent_1770121675349">
-        <dc:Bounds x="32" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1quo98c_di" bpmnElement="Activity_0wx9qgj">
         <dc:Bounds x="110" y="120" width="100" height="80" />

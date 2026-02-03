@@ -17,27 +17,29 @@
     <bpmn:scriptTask id="Activity_0f6vlzg" name="Test Result">
       <bpmn:incoming>Flow2_1770132558798</bpmn:incoming>
       <bpmn:outgoing>Flow_1a46c5r</bpmn:outgoing>
-      <bpmn:script>def runTest(t):
+      <bpmn:script>def runTests(tests):
   import io
   import unittest
 
-  output = io.StringIO()
-  r = unittest.TextTestRunner(stream=output).run(unittest.defaultTestLoader.loadTestsFromTestCase(t))
+  suite = unittest.TestSuite()
+  suite.addTests(tests)
+  stream = io.StringIO()
+  result = unittest.TextTestRunner(stream=stream).run(suite)
   
   return {
-    "testsRun": r.testsRun,
-    "wasSuccessful": r.wasSuccessful(),
-    "output": output.getvalue(),
+    "testsRun": result.testsRun,
+    "wasSuccessful": result.wasSuccessful(),
+    "output": stream.getvalue(),
   }
 
 def test():
   import unittest
 
   class TestTaskData(unittest.TestCase):
-    def test_var(self):
+    def runTest(self):
       self.assertEqual(some_field, spiff_testFixture["expected"]["some_field"])
       
-  return runTest(TestTaskData)
+  return runTests([TestTaskData()])
   
 spiff_testResult = test()</bpmn:script>
     </bpmn:scriptTask>
