@@ -49,17 +49,35 @@ class BpmnTestCase(unittest.TestCase):
         self.wasSuccessful = completed and result["wasSuccessful"]
         self.assertTrue(self.wasSuccessful)
 
+    def updateFromFixture(self, task):
+        if not task:
+            return
+        data = task["data"].get("spiff_testFixture", {}).get("data")
+        if not data:
+            return
+        task["data"].update(data.pop())
+        
     def runTest(self):
         iters = 0
         task = None
         state = {}
+        start_params = {
+        #    "data": {
+        #        "spiff_testFixture": {
+        #            "data": [
+        #                { "some_field": "jj" },
+        #            ],
+        #        },
+        #    },
+        }
         while iters < 100:
             iters = iters + 1
-            r = json.loads(advance_workflow(self.specs, state, task, "greedy", None))
+            r = json.loads(advance_workflow(self.specs, state, task, "greedy", start_params))
             if "result" in r:
                 break
-            task = pending_task(r)
             state = r["state"]
+            task = pending_task(r)
+            self.updateFromFixture(task)
 
         self.assertIn("status", r)
         self.assertEqual(r["status"], "ok")
