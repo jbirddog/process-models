@@ -1,0 +1,10 @@
+{
+  "title": "User Task",
+  "type": "object",
+  "properties": {
+    "some_field": {
+      "title": "Some Field",
+      "type": "string"
+    }
+  }
+}
