@@ -49,17 +49,26 @@ class BpmnTestCase(unittest.TestCase):
         self.wasSuccessful = completed and result["wasSuccessful"]
         self.assertTrue(self.wasSuccessful)
 
+    def updateFromFixture(self, task):
+        if not task or task["state"] != 32:
+            return
+        dataStack = task["data"].get("spiff_testFixture", {}).get("dataStack", [])
+        self.assertNotEqual(dataStack, [], "Empty dataStack found.")
+        task["data"].update(dataStack.pop())
+        
     def runTest(self):
         iters = 0
         task = None
         state = {}
+        start_params = {}
         while iters < 100:
             iters = iters + 1
-            r = json.loads(advance_workflow(self.specs, state, task, "greedy", None))
+            r = json.loads(advance_workflow(self.specs, state, task, "greedy", start_params))
             if "result" in r:
                 break
-            task = pending_task(r)
             state = r["state"]
+            task = pending_task(r)
+            self.updateFromFixture(task)
 
         self.assertIn("status", r)
         self.assertEqual(r["status"], "ok")
@@ -71,6 +80,9 @@ cases = {
     ],
     "bpmn/test-cases/manual-tasks/test-mt.bpmn": [
         "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
+    ],
+    "bpmn/test-cases/ut/test.bpmn": [
+        "bpmn/test-cases/ut/ut.bpmn",
     ],
 }
 
