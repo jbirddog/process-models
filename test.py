@@ -50,12 +50,11 @@ class BpmnTestCase(unittest.TestCase):
         self.assertTrue(self.wasSuccessful)
 
     def updateFromFixture(self, task):
-        if not task:
+        if not task or task["state"] != 32:
             return
-        data = task["data"].get("spiff_testFixture", {}).get("data")
-        if not data:
-            return
-        task["data"].update(data.pop())
+        dataStack = task["data"].get("spiff_testFixture", {}).get("dataStack", [])
+        self.assertNotEqual(dataStack, [], "Empty dataStack found.")
+        task["data"].update(dataStack.pop())
         
     def runTest(self):
         iters = 0
