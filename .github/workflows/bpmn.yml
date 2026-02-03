@@ -1,13 +1,15 @@
 name: Test BPMN
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
-      - testing
 
 jobs:
-  uv-example:
-    name: python
+  spiff-ci:
+    name: Test BPMN
     runs-on: ubuntu-latest
 
     steps:
