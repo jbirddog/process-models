@@ -51,7 +51,7 @@ class BpmnTestCase(unittest.TestCase):
         self.parseWorkflowResult(r)
 
 cases = {
-    "tests/basic-example.bpmn": [
+    "bpmn/test-cases/dict-tests/test.bpmn": [
         "bpmn/test-cases/dict-tests/dict-tests.bpmn",
     ],
 }
