@@ -33,21 +33,29 @@ def expected_pending_task(r):
     task["data"].update(expected["data"])
     return task
 
-def test_workflow(specs):
-    task = None
-    state = {}
+def test_workflow(specs, state, completed_task):
     while True:
-        r = json.loads(advance_workflow(specs, state, task, "greedy", None))
-        if "result" in r:
+        r = json.loads(advance_workflow(specs, state, completed_task, "greedy", None))
+        if r.get("completed"):
             break
         state = r["state"]
-        task = expected_pending_task(r)
-        if not task:
+        completed_task = expected_pending_task(r)
+        if not completed_task:
             break
     return r
 
 ###
-            
+
+files_by_process_id = {
+    "Process_diu8ta2": "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
+    "Process_1770128055928": "bpmn/test-cases/ut/ut.bpmn",
+    "dict_tests": "bpmn/test-cases/dict-tests/dict-tests.bpmn",
+}
+
+def slurp(file):
+    with open(file) as f:
+        return f.read()
+
 class BpmnTestCase(unittest.TestCase):
     def __init__(self, name, specs):
         self.name = name
@@ -57,8 +65,27 @@ class BpmnTestCase(unittest.TestCase):
         self.wasSuccessful = False
         super().__init__()
 
+    def lazy_load(self, ids):
+        self.specs = json.loads(self.specs)
+        for id in ids:
+            name = files_by_process_id[id]
+            specs, err = specs_from_xml([(name, slurp(name))])
+            self.assertIsNone(err)
+            self.specs["subprocess_specs"][id] = specs
+        self.specs = json.dumps(self.specs)
+
     def runTest(self):
-        r = test_workflow(self.specs)
+        iters = 0
+        state = {}
+        while iters < 100:
+            iters = iters + 1
+            r = test_workflow(self.specs, state, None)
+            state = r["state"]
+            lazy_loads = r.get("lazy_loads")
+            if not lazy_loads:
+                break
+            self.lazy_load(lazy_loads)
+        
         self.assertEqual(r.get("status"), "ok")
         completed = r.get("completed")
         self.assertTrue(completed, f"{self.name} did not complete.")
@@ -82,30 +109,17 @@ class BpmnTestCase(unittest.TestCase):
         self.testsRun = result["testsRun"]
         self.wasSuccessful = completed and result["wasSuccessful"]
         self.assertTrue(self.wasSuccessful)
-
-cases = {
-    "bpmn/test-cases/dict-tests/test.bpmn": [
-        "bpmn/test-cases/dict-tests/dict-tests.bpmn",
-    ],
-    "bpmn/test-cases/manual-tasks/test-mt.bpmn": [
-        "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
-    ],
-    "bpmn/test-cases/ut/test.bpmn": [
-        "bpmn/test-cases/ut/ut.bpmn",
-    ],
-}
-
-def slurp(file):
-    with open(file) as f:
-        return f.read()
         
 if __name__ == "__main__":
     tests = []
-    for t, deps in cases.items():
-        files = [(t, slurp(t))] + [(d, slurp(d)) for d in deps]
-        specs, err = specs_from_xml(files)
+    for name in [
+        "bpmn/test-cases/dict-tests/test.bpmn",
+        "bpmn/test-cases/manual-tasks/test-mt.bpmn",
+        "bpmn/test-cases/ut/test.bpmn",
+    ]:
+        specs, err = specs_from_xml([(name, slurp(name))])
         assert not err
-        tests.append(BpmnTestCase(t, specs))
+        tests.append(BpmnTestCase(name, specs))
     suite = unittest.TestSuite()
     suite.addTests(tests)
     stream = io.StringIO() 
