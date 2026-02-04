@@ -71,8 +71,8 @@ spiff_testResult = test()</bpmn:script>
       <bpmn:incoming>Flow1_1770132558798</bpmn:incoming>
       <bpmn:outgoing>Flow_1fbs4ll</bpmn:outgoing>
       <bpmn:script>spiff_testFixture = {
-  "dataStack": [
-    { "some_field": "jj" }
+  "pendingTaskStack": [
+    { "id": "ut_task", "data": { "some_field": "jj" } },
   ],
   "expected": {
     "some_field": "jj",
