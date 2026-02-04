@@ -20,6 +20,34 @@ def pending_task(r):
         if p["task_spec"]["manual"]:
             return p
 
+def pendingTask(r):
+    task = pending_task(r)
+    if not task or task["state"] != 32:
+        return task
+    stack = task["data"].get("spiff_testFixture", {}).get("pendingTaskStack", [])
+    if not stack:
+        return None
+    expected = stack.pop()
+    if task["task_spec"]["name"] != expected["id"]:
+        return None
+    task["data"].update(expected["data"])
+    return task
+
+def test_workflow(specs):
+    task = None
+    state = {}
+    while True:
+        r = json.loads(advance_workflow(specs, state, task, "greedy", None))
+        if "result" in r:
+            break
+        state = r["state"]
+        task = pendingTask(r)
+        if not task:
+            break
+    return r
+
+###
+            
 class BpmnTestCase(unittest.TestCase):
     def __init__(self, specs):
         self.specs = specs
@@ -28,7 +56,10 @@ class BpmnTestCase(unittest.TestCase):
         self.wasSuccessful = False
         super().__init__()
 
-    def parseWorkflowResult(self, r):
+    def runTest(self):
+        r = test_workflow(self.specs)
+        self.assertIn("status", r)
+        self.assertEqual(r["status"], "ok")
         completed = r.get("completed", False)
         if completed:
             self.assertIn("result", r)
@@ -48,35 +79,6 @@ class BpmnTestCase(unittest.TestCase):
         self.testsRun = result["testsRun"]
         self.wasSuccessful = completed and result["wasSuccessful"]
         self.assertTrue(self.wasSuccessful)
-
-    def pendingTask(self, r):
-        task = pending_task(r)
-        if not task or task["state"] != 32:
-            return task
-        stack = task["data"].get("spiff_testFixture", {}).get("pendingTaskStack", [])
-        if not stack:
-            return None
-        expected = stack.pop()
-        self.assertEqual(task["task_spec"]["name"], expected["id"])
-        task["data"].update(expected["data"])
-        return task
-        
-    def runTest(self):
-        iters = 0
-        task = None
-        state = {}
-        start_params = {}
-        while iters < 100:
-            iters = iters + 1
-            r = json.loads(advance_workflow(self.specs, state, task, "greedy", start_params))
-            if "result" in r:
-                break
-            state = r["state"]
-            task = self.pendingTask(r)
-
-        self.assertIn("status", r)
-        self.assertEqual(r["status"], "ok")
-        self.parseWorkflowResult(r)
 
 cases = {
     "bpmn/test-cases/dict-tests/test.bpmn": [
