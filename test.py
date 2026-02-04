@@ -71,7 +71,10 @@ class BpmnTestCase(unittest.TestCase):
             name = files_by_process_id[id]
             specs, err = specs_from_xml([(name, slurp(name))])
             self.assertIsNone(err)
-            self.specs["subprocess_specs"][id] = specs
+            specs = json.loads(specs)
+            subprocess_specs = self.specs["subprocess_specs"]
+            subprocess_specs[id] = specs["spec"]
+            subprocess_specs.update(specs["subprocess_specs"])
         self.specs = json.dumps(self.specs)
 
     def runTest(self):
