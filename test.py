@@ -55,6 +55,18 @@ class BpmnTestCase(unittest.TestCase):
         dataStack = task["data"].get("spiff_testFixture", {}).get("dataStack", [])
         self.assertNotEqual(dataStack, [], "Empty dataStack found.")
         task["data"].update(dataStack.pop())
+
+    def pendingTask(self, r):
+        task = pending_task(r)
+        if not task or task["state"] != 32:
+            return task
+        stack = task["data"].get("spiff_testFixture", {}).get("pendingTaskStack", [])
+        if not stack:
+            return None
+        expected = stack.pop()
+        self.assertEqual(task["task_spec"]["name"], expected["id"])
+        task["data"].update(expected["data"])
+        return task
         
     def runTest(self):
         iters = 0
@@ -67,8 +79,7 @@ class BpmnTestCase(unittest.TestCase):
             if "result" in r:
                 break
             state = r["state"]
-            task = pending_task(r)
-            self.updateFromFixture(task)
+            task = self.pendingTask(r)
 
         self.assertIn("status", r)
         self.assertEqual(r["status"], "ok")
