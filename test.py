@@ -49,7 +49,8 @@ def test_workflow(specs):
 ###
             
 class BpmnTestCase(unittest.TestCase):
-    def __init__(self, specs):
+    def __init__(self, name, specs):
+        self.name = name
         self.specs = specs
         self.output = ""
         self.testsRun = 0
@@ -58,9 +59,10 @@ class BpmnTestCase(unittest.TestCase):
 
     def runTest(self):
         r = test_workflow(self.specs)
-        self.assertIn("status", r)
-        self.assertEqual(r["status"], "ok")
-        completed = r.get("completed", False)
+        self.assertEqual(r.get("status"), "ok")
+        completed = r.get("completed")
+        self.assertTrue(completed, f"{self.name} did not complete.")
+        
         if completed:
             self.assertIn("result", r)
             data = r["result"]
@@ -75,6 +77,7 @@ class BpmnTestCase(unittest.TestCase):
         self.assertIn("output", result)
         self.assertIn("testsRun", result)
         self.assertIn("wasSuccessful", result)
+        
         self.output = result["output"]
         self.testsRun = result["testsRun"]
         self.wasSuccessful = completed and result["wasSuccessful"]
@@ -102,7 +105,7 @@ if __name__ == "__main__":
         files = [(t, slurp(t))] + [(d, slurp(d)) for d in deps]
         specs, err = specs_from_xml(files)
         assert not err
-        tests.append(BpmnTestCase(specs))
+        tests.append(BpmnTestCase(t, specs))
     suite = unittest.TestSuite()
     suite.addTests(tests)
     stream = io.StringIO() 
