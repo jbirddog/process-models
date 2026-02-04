@@ -20,7 +20,7 @@ def pending_task(r):
         if p["task_spec"]["manual"]:
             return p
 
-def pendingTask(r):
+def expected_pending_task(r):
     task = pending_task(r)
     if not task or task["state"] != 32:
         return task
@@ -41,7 +41,7 @@ def test_workflow(specs):
         if "result" in r:
             break
         state = r["state"]
-        task = pendingTask(r)
+        task = expected_pending_task(r)
         if not task:
             break
     return r
