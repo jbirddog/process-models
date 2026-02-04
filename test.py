@@ -36,7 +36,7 @@ def expected_pending_task(r):
 def test_workflow(specs, state, completed_task):
     while True:
         r = json.loads(advance_workflow(specs, state, completed_task, "greedy", None))
-        if r.get("completed"):
+        if r.get("status") != "ok" or r.get("completed"):
             break
         state = r["state"]
         completed_task = expected_pending_task(r)
