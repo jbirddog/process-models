@@ -59,7 +59,7 @@ spiff_testResult = test()</bpmn:script>
     <bpmn:sequenceFlow id="Flow_1bhqy5q" sourceRef="Gateway_1izg0qj" targetRef="EndEvent_1770132558798" />
     <bpmn:sequenceFlow id="Flow_00tp9fz" sourceRef="Gateway_1gvxdru" targetRef="Activity_0mg5d2b" />
     <bpmn:sequenceFlow id="Flow_0lmdtk5" sourceRef="Activity_0mg5d2b" targetRef="Gateway_1izg0qj" />
-    <bpmn:manualTask id="Activity_0mg5d2b">
+    <bpmn:manualTask id="Activity_0mg5d2b" name="Show Failures">
       <bpmn:extensionElements>
         <spiffworkflow:instructionsForEndUser>{{ spiff_testResult["output"] }}</spiffworkflow:instructionsForEndUser>
       </bpmn:extensionElements>
@@ -104,6 +104,7 @@ spiff_testResult = test()</bpmn:script>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_11mpvf0_di" bpmnElement="Activity_0mg5d2b">
         <dc:Bounds x="600" y="210" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0l1t70p_di" bpmnElement="Activity_0d27dhn">
         <dc:Bounds x="120" y="120" width="100" height="80" />
