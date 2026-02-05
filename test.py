@@ -10,6 +10,7 @@
 
 import io
 import json
+import os
 import sys
 import unittest
 
@@ -30,6 +31,7 @@ class BpmnTestCase(unittest.TestCase):
     def __init__(self, name, specs):
         self.name = name
         self.specs = specs
+        self.state = {}
         self.output = ""
         self.testsRun = 0
         self.wasSuccessful = False
@@ -49,11 +51,10 @@ class BpmnTestCase(unittest.TestCase):
 
     def runTest(self):
         iters = 0
-        state = {}
         while iters < 100:
             iters = iters + 1
-            r = json.loads(advance_workflow(self.specs, {}, None, "unittest", None))
-            state = r["state"]
+            r = json.loads(advance_workflow(self.specs, self.state, None, "unittest", None))
+            self.state = r["state"]
             lazy_loads = r.get("lazy_loads")
             if not lazy_loads:
                 break
@@ -85,8 +86,19 @@ class BpmnTestCase(unittest.TestCase):
         self.testsRun = result["testsRun"]
         self.wasSuccessful = completed and result["wasSuccessful"]
         self.assertTrue(self.wasSuccessful)
+
+###
+
+def index():
+    for root, dirs, files in os.walk(".", topdown=True):
+        dirs[:] = [d for d in dirs if not d.startswith(".")]
+        print(files)
+
+###
         
 if __name__ == "__main__":
+    index()
+    sys.exit(0)
     tests = []
     for name in [
         "bpmn/test-cases/dict-tests/test.bpmn",
@@ -100,7 +112,7 @@ if __name__ == "__main__":
     suite = unittest.TestSuite()
     suite.addTests(tests)
     stream = io.StringIO() 
-    result = unittest.TextTestRunner(stream=stream).run(suite)
+    result = unittest.TextTestRunner(stream=stream).run(suite)    
     output = [t.output for t in tests if not t.wasSuccessful and t.output] + [stream.getvalue()]
     print(output[0])
     sys.exit(not result.wasSuccessful())

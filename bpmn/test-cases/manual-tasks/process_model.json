@@ -1,9 +1,0 @@
-{
-    "description": "",
-    "display_name": "Manual Tasks",
-    "exception_notification_addresses": [],
-    "fault_or_suspend_on_exception": "fault",
-    "metadata_extraction_paths": null,
-    "primary_file_name": "manual_tasks.bpmn",
-    "primary_process_id": "Process_diu8ta2"
-}
