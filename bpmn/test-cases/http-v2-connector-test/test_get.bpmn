@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="Process_1770249220377" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1770249220377">
+      <bpmn:outgoing>Flow1_1770249220377</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1770249220377">
+      <bpmn:incoming>Flow_0jphctf</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow1_1770249220377" sourceRef="StartEvent_1770249220377" targetRef="Activity_03v12d2" />
+    <bpmn:sequenceFlow id="Flow2_1770249220377" sourceRef="Task_1770249220377" targetRef="Activity_180yucj" />
+    <bpmn:callActivity id="Task_1770249220377" name="Run get request" calledElement="coin-gecko_simple-price">
+      <bpmn:incoming>Flow_194n4u3</bpmn:incoming>
+      <bpmn:outgoing>Flow2_1770249220377</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_194n4u3" sourceRef="Activity_03v12d2" targetRef="Task_1770249220377" />
+    <bpmn:scriptTask id="Activity_03v12d2" name="Load Test Fixture">
+      <bpmn:incoming>Flow1_1770249220377</bpmn:incoming>
+      <bpmn:outgoing>Flow_194n4u3</bpmn:outgoing>
+      <bpmn:script>spiff_testFixture = {
+  "pendingTaskStack": [
+    { 
+      "id": "Activity_17nl8sw", 
+      "data": { 
+        "resp_get": {
+          "body": {
+            "userId": 1,
+            "id": 1,
+            "title": "delectus aut autem",
+            "completed": False
+          },
+          "mimetype": "application/json",
+          "http_status": 200,
+          "operator_identifier": "http/GetRequest"
+        },
+      }, 
+    },
+  ],
+}</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_1wg6aca" sourceRef="Activity_180yucj" targetRef="Gateway_04092wq" />
+    <bpmn:scriptTask id="Activity_180yucj" name="Test Result">
+      <bpmn:incoming>Flow2_1770249220377</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wg6aca</bpmn:outgoing>
+      <bpmn:script>def runTests(tests):
+  import io
+  import unittest
+
+  suite = unittest.TestSuite()
+  suite.addTests(tests)
+  stream = io.StringIO()
+  result = unittest.TextTestRunner(stream=stream).run(suite)
+  
+  return {
+    "testsRun": result.testsRun,
+    "wasSuccessful": result.wasSuccessful(),
+    "output": stream.getvalue(),
+  }
+
+def test():
+  import unittest
+
+  class TestTaskData(unittest.TestCase):
+    def runTest(self):
+      self.assertIn("body", resp_get)
+      self.assertIn("id", resp_get["body"])
+      self.assertEqual(resp_get["body"]["id"], id)
+      
+  return runTests([TestTaskData()])
+  
+spiff_testResult = test()</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:exclusiveGateway id="Gateway_04092wq" default="Flow_1jcirrx">
+      <bpmn:incoming>Flow_1wg6aca</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bfovu0</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1jcirrx</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0bfovu0" sourceRef="Gateway_04092wq" targetRef="Gateway_1syv7fd">
+      <bpmn:conditionExpression>spiff_testResult["wasSuccessful"]</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Gateway_1syv7fd">
+      <bpmn:incoming>Flow_0bfovu0</bpmn:incoming>
+      <bpmn:incoming>Flow_1dr6ipn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jphctf</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0jphctf" sourceRef="Gateway_1syv7fd" targetRef="EndEvent_1770249220377" />
+    <bpmn:sequenceFlow id="Flow_1jcirrx" sourceRef="Gateway_04092wq" targetRef="Activity_193uosf" />
+    <bpmn:sequenceFlow id="Flow_1dr6ipn" sourceRef="Activity_193uosf" targetRef="Gateway_1syv7fd" />
+    <bpmn:manualTask id="Activity_193uosf" name="Failed">
+      <bpmn:extensionElements>
+        <spiffworkflow:instructionsForEndUser>{{ spiff_testResult["output"] }}</spiffworkflow:instructionsForEndUser>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1jcirrx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dr6ipn</bpmn:outgoing>
+    </bpmn:manualTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1770249220377">
+      <bpmndi:BPMNShape id="StartEvent_1770249220377_di" bpmnElement="StartEvent_1770249220377">
+        <dc:Bounds x="42" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1770249220377_di" bpmnElement="EndEvent_1770249220377">
+        <dc:Bounds x="772" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0o134vc_di" bpmnElement="Task_1770249220377">
+        <dc:Bounds x="260" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0imwwfc_di" bpmnElement="Activity_03v12d2">
+        <dc:Bounds x="120" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09mgbcy_di" bpmnElement="Activity_180yucj">
+        <dc:Bounds x="400" y="120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_04092wq_di" bpmnElement="Gateway_04092wq" isMarkerVisible="true">
+        <dc:Bounds x="535" y="135" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1syv7fd_di" bpmnElement="Gateway_1syv7fd" isMarkerVisible="true">
+        <dc:Bounds x="695" y="135" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h5t59c_di" bpmnElement="Activity_193uosf">
+        <dc:Bounds x="590" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow1_1770249220377_di" bpmnElement="Flow1_1770249220377">
+        <di:waypoint x="78" y="160" />
+        <di:waypoint x="120" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow2_1770249220377_di" bpmnElement="Flow2_1770249220377">
+        <di:waypoint x="360" y="160" />
+        <di:waypoint x="400" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_194n4u3_di" bpmnElement="Flow_194n4u3">
+        <di:waypoint x="220" y="160" />
+        <di:waypoint x="260" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wg6aca_di" bpmnElement="Flow_1wg6aca">
+        <di:waypoint x="500" y="160" />
+        <di:waypoint x="535" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bfovu0_di" bpmnElement="Flow_0bfovu0">
+        <di:waypoint x="585" y="160" />
+        <di:waypoint x="695" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jphctf_di" bpmnElement="Flow_0jphctf">
+        <di:waypoint x="745" y="160" />
+        <di:waypoint x="772" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jcirrx_di" bpmnElement="Flow_1jcirrx">
+        <di:waypoint x="560" y="185" />
+        <di:waypoint x="560" y="270" />
+        <di:waypoint x="590" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dr6ipn_di" bpmnElement="Flow_1dr6ipn">
+        <di:waypoint x="690" y="270" />
+        <di:waypoint x="720" y="270" />
+        <di:waypoint x="720" y="185" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

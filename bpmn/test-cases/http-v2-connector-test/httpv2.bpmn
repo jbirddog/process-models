@@ -4,70 +4,59 @@
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_116qrm3</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_116qrm3" sourceRef="StartEvent_1" targetRef="Activity_17nl8sw" />
+    <bpmn:sequenceFlow id="Flow_116qrm3" sourceRef="StartEvent_1" targetRef="Activity_1ocrxlv" />
     <bpmn:endEvent id="Event_12czlsn">
-      <bpmn:incoming>Flow_1af2ie2</bpmn:incoming>
+      <bpmn:incoming>Flow_1a7rq9z</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1a7rq9z" sourceRef="Activity_17nl8sw" targetRef="Activity_084esg6" />
-    <bpmn:serviceTask id="Activity_17nl8sw" name="simple price">
+    <bpmn:sequenceFlow id="Flow_1a7rq9z" sourceRef="Activity_17nl8sw" targetRef="Event_12czlsn" />
+    <bpmn:serviceTask id="Activity_17nl8sw" name="todo/1">
       <bpmn:extensionElements>
-        <spiffworkflow:serviceTaskOperator id="http/GetRequestV2">
+        <spiffworkflow:serviceTaskOperator id="http/GetRequest" resultVariable="resp_get">
           <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="basic_auth_password" type="str" value="None" />
-            <spiffworkflow:parameter id="basic_auth_username" type="str" value="None" />
-            <spiffworkflow:parameter id="headers" type="any" value="{&#34;Accept&#34;: &#34;application/json&#34;}" />
-            <spiffworkflow:parameter id="params" type="any" value="{&#34;ids&#34;: &#34;DAI&#34;, &#34;vs_currencies&#34;: &#34;USD,ETH&#34; }" />
-            <spiffworkflow:parameter id="url" type="str" value="&#34;https://api.coingecko.com/api/v3/simple/price&#34;" />
+            <spiffworkflow:parameter id="url" type="str" value="f&#34;https://jsonplaceholder.typicode.com/todos/{id}&#34;" />
+            <spiffworkflow:parameter id="headers" type="any" />
+            <spiffworkflow:parameter id="params" type="any" />
+            <spiffworkflow:parameter id="basic_auth_username" type="str" />
+            <spiffworkflow:parameter id="basic_auth_password" type="str" />
           </spiffworkflow:parameters>
         </spiffworkflow:serviceTaskOperator>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_116qrm3</bpmn:incoming>
+      <bpmn:incoming>Flow_0tjgv52</bpmn:incoming>
       <bpmn:outgoing>Flow_1a7rq9z</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1af2ie2" sourceRef="Activity_084esg6" targetRef="Event_12czlsn" />
-    <bpmn:serviceTask id="Activity_084esg6" name="post v2">
-      <bpmn:extensionElements>
-        <spiffworkflow:serviceTaskOperator id="http/PostRequestV2">
-          <spiffworkflow:parameters>
-            <spiffworkflow:parameter id="basic_auth_password" type="str" value="None" />
-            <spiffworkflow:parameter id="basic_auth_username" type="str" value="None" />
-            <spiffworkflow:parameter id="data" type="any" value="{&#34;uXXrl&#34;: &#34;https://api.coingecko.com/api/v3/simple/price&#34;, &#34;params&#34;: {&#34;ids&#34;: &#34;DAI&#34;, &#34;vs_currencies&#34;: &#34;USD,ETH&#34; }}" />
-            <spiffworkflow:parameter id="headers" type="any" value="{}" />
-            <spiffworkflow:parameter id="url" type="str" value="&#34;http://localhost:5000/v1/do/http/GetRequest&#34;" />
-          </spiffworkflow:parameters>
-        </spiffworkflow:serviceTaskOperator>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1a7rq9z</bpmn:incoming>
-      <bpmn:outgoing>Flow_1af2ie2</bpmn:outgoing>
-    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0tjgv52" sourceRef="Activity_1ocrxlv" targetRef="Activity_17nl8sw" />
+    <bpmn:scriptTask id="Activity_1ocrxlv">
+      <bpmn:incoming>Flow_116qrm3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tjgv52</bpmn:outgoing>
+      <bpmn:script>id = 1</bpmn:script>
+    </bpmn:scriptTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="coin-gecko_simple-price">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="159" width="36" height="36" />
+        <dc:Bounds x="-38" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_12czlsn_di" bpmnElement="Event_12czlsn">
-        <dc:Bounds x="532" y="159" width="36" height="36" />
+        <dc:Bounds x="322" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1nito2p_di" bpmnElement="Activity_17nl8sw">
-        <dc:Bounds x="260" y="137" width="100" height="80" />
+        <dc:Bounds x="180" y="137" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_16775v1_di" bpmnElement="Activity_084esg6">
-        <dc:Bounds x="391" y="137" width="100" height="80" />
-        <bpmndi:BPMNLabel />
+      <bpmndi:BPMNShape id="Activity_180d7as_di" bpmnElement="Activity_1ocrxlv">
+        <dc:Bounds x="40" y="137" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_116qrm3_di" bpmnElement="Flow_116qrm3">
-        <di:waypoint x="215" y="177" />
-        <di:waypoint x="260" y="177" />
+        <di:waypoint x="-2" y="177" />
+        <di:waypoint x="40" y="177" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1a7rq9z_di" bpmnElement="Flow_1a7rq9z">
-        <di:waypoint x="360" y="177" />
-        <di:waypoint x="391" y="177" />
+        <di:waypoint x="280" y="177" />
+        <di:waypoint x="322" y="177" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1af2ie2_di" bpmnElement="Flow_1af2ie2">
-        <di:waypoint x="491" y="177" />
-        <di:waypoint x="532" y="177" />
+      <bpmndi:BPMNEdge id="Flow_0tjgv52_di" bpmnElement="Flow_0tjgv52">
+        <di:waypoint x="140" y="177" />
+        <di:waypoint x="180" y="177" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
