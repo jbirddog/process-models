@@ -36,9 +36,6 @@
       }, 
     },
   ],
-  "expected": {
-    "id": 1,
-  }
 }</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow_1wg6aca" sourceRef="Activity_180yucj" targetRef="Gateway_04092wq" />
@@ -67,7 +64,7 @@ def test():
     def runTest(self):
       self.assertIn("body", resp_get)
       self.assertIn("id", resp_get["body"])
-      self.assertEqual(resp_get["body"]["id"], spiff_testFixture["expected"]["id"])
+      self.assertEqual(resp_get["body"]["id"], id)
       
   return runTests([TestTaskData()])
   
