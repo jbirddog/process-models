@@ -3,7 +3,7 @@
 # dependencies = [
 #     "jinja2>=3.1.6",
 #     "jsonschema>=4.26.0",
-#     "spiff-arena-common==0.1.6",
+#     "spiff-arena-common @/home/jon/dev/spiff-arena/dist/spiff_arena_common-0.1.7-py3-none-any.whl",
 #     "spiffworkflow==3.1.2",
 # ]
 # ///
@@ -15,41 +15,11 @@ import unittest
 
 from spiff_arena_common.runner import advance_workflow, specs_from_xml
 
-def pending_task(r):
-    for p in r.get("pending_tasks", []):
-        if p["task_spec"]["manual"]:
-            return p
-
-def expected_pending_task(r):
-    task = pending_task(r)
-    if not task or task["state"] != 32:
-        return task
-    stack = task["data"].get("spiff_testFixture", {}).get("pendingTaskStack", [])
-    if not stack:
-        return None
-    expected = stack.pop()
-    if task["task_spec"]["name"] != expected["id"]:
-        return None
-    task["data"].update(expected["data"])
-    return task
-
-def test_workflow(specs, state, completed_task):
-    while True:
-        r = json.loads(advance_workflow(specs, state, completed_task, "greedy", None))
-        if r.get("status") != "ok" or r.get("completed"):
-            break
-        state = r["state"]
-        completed_task = expected_pending_task(r)
-        if not completed_task:
-            break
-    return r
-
-###
-
 files_by_process_id = {
     "Process_diu8ta2": "bpmn/test-cases/manual-tasks/manual_tasks.bpmn",
     "Process_1770128055928": "bpmn/test-cases/ut/ut.bpmn",
     "dict_tests": "bpmn/test-cases/dict-tests/dict-tests.bpmn",
+    "coin-gecko_simple-price": "bpmn/test-cases/http-v2-connector-test/httpv2.bpmn",
 }
 
 def slurp(file):
@@ -82,7 +52,7 @@ class BpmnTestCase(unittest.TestCase):
         state = {}
         while iters < 100:
             iters = iters + 1
-            r = test_workflow(self.specs, state, None)
+            r = json.loads(advance_workflow(self.specs, {}, None, "unittest", None))
             state = r["state"]
             lazy_loads = r.get("lazy_loads")
             if not lazy_loads:
@@ -118,6 +88,7 @@ if __name__ == "__main__":
         "bpmn/test-cases/dict-tests/test.bpmn",
         "bpmn/test-cases/manual-tasks/test-mt.bpmn",
         "bpmn/test-cases/ut/test.bpmn",
+        "bpmn/test-cases/http-v2-connector-test/test_get.bpmn",
     ]:
         specs, err = specs_from_xml([(name, slurp(name))])
         assert not err
