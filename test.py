@@ -71,6 +71,10 @@ class BpmnTestCase(unittest.TestCase):
             self.assertGreater(len(pending), 0)
             self.assertIn("data", pending[0])
             data = pending[0]["data"]
+
+        stack = data.get("spiff_testFixture", {}).get("pendingTaskStack", [])
+        self.assertEqual(stack, [])
+        
         self.assertIn("spiff_testResult", data)
         result = data["spiff_testResult"]
         self.assertIn("output", result)
