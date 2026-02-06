@@ -114,13 +114,18 @@ def cov_tasks(states):
                 if task["state"] == 64:
                     yield id, task["task_spec"]
     
-def do_cov(states):
+def do_cov(specs, states):
+    all = {}
     completed = {}
     for id, task_id in cov_tasks(states):
         if id not in completed:
             completed[id] = set()
         completed[id].add(task_id)
-    return { "completed": completed }
+    for id, spec in specs.items():
+        spec = json.loads(spec)["spec"]
+        all[id] = set([t for t in spec["task_specs"]])
+    
+    return { "all": all, "completed": completed }
     
 ###
 
@@ -136,7 +141,6 @@ if __name__ == "__main__":
     output = [t.output for t in test_cases if not t.wasSuccessful and t.output] + [stream.getvalue()]
     print(output[0])
 
-    cov = do_cov([t.state for t in test_cases])
-    print(cov)
+    cov = do_cov(ctx.specs, [t.state for t in test_cases])
     
     sys.exit(not result.wasSuccessful())
