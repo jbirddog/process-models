@@ -175,3 +175,6 @@ if __name__ == "__main__":
     
     [completed, all, percent] = tally.result
     print(f"\nTotal - {completed}/{all} - {percent:.2f}%")
+
+    if percent < 10.0:
+        sys.exit(1)
