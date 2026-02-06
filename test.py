@@ -89,10 +89,10 @@ def slurp(file):
         return f.read()
 
 Test = namedtuple("Test", ["file", "specs"])
-TestCtx = namedtuple("TestCtx", ["specs", "tests"])
+TestCtx = namedtuple("TestCtx", ["files", "specs", "tests"])
 
 def index(dir):
-    ctx = TestCtx({}, [])
+    ctx = TestCtx([], {}, [])
     for file in files_to_parse(dir):
         specs, err = specs_from_xml([(file, slurp(file))])
         assert not err
@@ -102,6 +102,7 @@ def index(dir):
             d = json.loads(specs)
             id = d["spec"]["name"]
             assert id not in ctx.specs
+            ctx.files.append((id, file))
             ctx.specs[id] = specs
     ctx.tests.sort()
     return ctx
@@ -143,7 +144,13 @@ if __name__ == "__main__":
     output = [t.output for t in test_cases if not t.wasSuccessful and t.output] + [stream.getvalue()]
     print(output[0])
 
-    cov = do_cov(ctx.specs, [t.state for t in test_cases])
-    print(cov["missing"])
+    if not result.wasSuccessful():
+        sys.exit(1)
+
+    print("Task Coverage:\n")
     
-    sys.exit(not result.wasSuccessful())
+    cov = do_cov(ctx.specs, [t.state for t in test_cases])
+    for id, f in ctx.files:
+        completed = cov["completed"].get(id, set())
+        print(f'{f} - {len(completed)}/{len(cov["all"][id])}')
+
