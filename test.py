@@ -103,6 +103,7 @@ def index(dir):
             assert id not in ctx.specs
             ctx.files.append((id, file))
             ctx.specs[id] = specs
+    ctx.files.sort(key=lambda f: f[1])
     ctx.tests.sort()
     return ctx
 
