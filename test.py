@@ -88,10 +88,10 @@ def slurp(file):
         return f.read()
 
 Test = namedtuple("Test", ["file", "specs"])
-TestCtx = namedtuple("TestCtx", ["specs", "tests"])
+TestCtx = namedtuple("TestCtx", ["files", "specs", "tests"])
 
 def index(dir):
-    ctx = TestCtx({}, [])
+    ctx = TestCtx([], {}, [])
     for file in files_to_parse(dir):
         specs, err = specs_from_xml([(file, slurp(file))])
         assert not err
@@ -99,20 +99,67 @@ def index(dir):
             ctx.tests.append(Test(file, specs))
         else:
             d = json.loads(specs)
-            ctx.specs[d["spec"]["name"]] = specs
+            id = d["spec"]["name"]
+            assert id not in ctx.specs
+            ctx.files.append((id, file))
+            ctx.specs[id] = specs
+    ctx.files.sort(key=lambda f: f[1])
+    ctx.tests.sort()
     return ctx
 
+def cov_tasks(states):
+    for state in states:
+        for _, sp in state["subprocesses"].items():
+            id = sp["spec"]
+            for _, task in sp["tasks"].items():
+                if task["state"] == 64:
+                    yield id, task["task_spec"]
+    
+def do_cov(specs, states):
+    all = {}
+    completed = {}
+    missing = {}
+    for id, task_id in cov_tasks(states):
+        if id not in completed:
+            completed[id] = set()
+        completed[id].add(task_id)
+    for id, spec in specs.items():
+        if id not in completed:
+            completed[id] = set()
+        spec = json.loads(spec)["spec"]
+        all[id] = set([t for t in spec["task_specs"]])
+        missing[id] = all[id] - completed[id]
+    
+    return { "all": all, "completed": completed, "missing": missing }
+    
 ###
-        
+
 if __name__ == "__main__":
     ctx = index(".")
-    tests = []
+    test_cases = []
     for t in ctx.tests:
-        tests.append(BpmnTestCase(t.file, t.specs, ctx.specs))
+        test_cases.append(BpmnTestCase(t.file, t.specs, ctx.specs))
     suite = unittest.TestSuite()
-    suite.addTests(tests)
+    suite.addTests(test_cases)
     stream = io.StringIO() 
     result = unittest.TextTestRunner(stream=stream).run(suite)    
-    output = [t.output for t in tests if not t.wasSuccessful and t.output] + [stream.getvalue()]
+    output = [t.output for t in test_cases if not t.wasSuccessful and t.output] + [stream.getvalue()]
     print(output[0])
-    sys.exit(not result.wasSuccessful())
+
+    if not result.wasSuccessful():
+        sys.exit(1)
+
+    print("Unit Test Task Coverage:\n")
+    
+    cov = do_cov(ctx.specs, [t.state for t in test_cases])
+    all = 0
+    completed = 0
+    for id, f in ctx.files:
+        c = len(cov["completed"][id])
+        a = len(cov["all"][id])
+        completed += c
+        all += a
+        print(f"{f} - {c}/{a} - {(c/a * 100):.2f}%")
+    
+    print(f"\nTotal - {completed}/{all} - {(completed/all * 100):.2f}%")
+
