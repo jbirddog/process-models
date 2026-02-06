@@ -106,16 +106,21 @@ def index(dir):
     ctx.tests.sort()
     return ctx
 
-def cov_tasks(state):
-    for _, sp in state["subprocesses"].items():
-        id = sp["spec"]
-        for _, task in sp["tasks"].items():
-            if task["state"] == 64:
-                yield id, task["task_spec"]
+def cov_tasks(states):
+    for state in states:
+        for _, sp in state["subprocesses"].items():
+            id = sp["spec"]
+            for _, task in sp["tasks"].items():
+                if task["state"] == 64:
+                    yield id, task["task_spec"]
     
-def do_cov(cov, state):
-    for id, task_id in cov_tasks(state):
-        print(f"{id} - {task_id}")
+def do_cov(states):
+    completed = {}
+    for id, task_id in cov_tasks(states):
+        if id not in completed:
+            completed[id] = set()
+        completed[id].add(task_id)
+    return { "completed": completed }
     
 ###
 
@@ -131,8 +136,7 @@ if __name__ == "__main__":
     output = [t.output for t in test_cases if not t.wasSuccessful and t.output] + [stream.getvalue()]
     print(output[0])
 
-    cov = {}
-    for t in test_cases:
-        do_cov(cov, t.state)
+    cov = do_cov([t.state for t in test_cases])
+    print(cov)
     
     sys.exit(not result.wasSuccessful())
