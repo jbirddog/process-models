@@ -14,6 +14,8 @@ import os
 import sys
 import unittest
 
+from collections import namedtuple
+
 from spiff_arena_common.runner import advance_workflow, specs_from_xml
 
 files_by_process_id = {
@@ -94,19 +96,23 @@ def files_to_parse(dir):
         dirs[:] = [d for d in dirs if not d.startswith(".")]
         yield from [os.path.join(root, f) for f in files if f.endswith(".bpmn")] # TODO: dmn
 
-def index():
-    ctx = {}
-    for file in files_to_parse("."):
-        print(file)
+TestCtx = namedtuple("TestCtx", ["specs", "tests"])
+        
+def index(dir):
+    ctx = TestCtx({}, [])
+    for file in files_to_parse(dir):
         specs, err = specs_from_xml([(file, slurp(file))])
         assert not err
-        ctx[file] = specs
+        ctx.specs[file] = specs
+        if file.endswith("_test.bpmn"):
+            ctx.tests.append(file)
     return ctx
 
 ###
         
 if __name__ == "__main__":
-    index()
+    ctx = index(".")
+    print(ctx.tests)
     sys.exit(0)
     tests = []
     for name in [
