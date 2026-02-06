@@ -89,6 +89,7 @@ def slurp(file):
 
 Test = namedtuple("Test", ["file", "specs"])
 TestCtx = namedtuple("TestCtx", ["files", "specs", "tests"])
+TestCov = namedtuple("TestCov", ["all", "completed", "missing"])
 
 def index(dir):
     ctx = TestCtx([], {}, [])
@@ -114,7 +115,7 @@ def cov_tasks(states):
             for _, task in sp["tasks"].items():
                 if task["state"] == 64:
                     yield id, task["task_spec"]
-    
+
 def do_cov(specs, states):
     all = {}
     completed = {}
@@ -130,7 +131,7 @@ def do_cov(specs, states):
         all[id] = set([t for t in spec["task_specs"]])
         missing[id] = all[id] - completed[id]
     
-    return { "all": all, "completed": completed, "missing": missing }
+    return TestCov(all, completed, missing)
     
 ###
 
@@ -155,11 +156,10 @@ if __name__ == "__main__":
     all = 0
     completed = 0
     for id, f in ctx.files:
-        c = len(cov["completed"][id])
-        a = len(cov["all"][id])
+        c = len(cov.completed[id])
+        a = len(cov.all[id])
         completed += c
         all += a
         print(f"{f} - {c}/{a} - {(c/a * 100):.2f}%")
     
     print(f"\nTotal - {completed}/{all} - {(completed/all * 100):.2f}%")
-
