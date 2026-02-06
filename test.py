@@ -90,7 +90,7 @@ def slurp(file):
 Test = namedtuple("Test", ["file", "specs"])
 TestCtx = namedtuple("TestCtx", ["files", "specs", "tests"])
 TestCov = namedtuple("TestCov", ["all", "completed", "missing"])
-Tally = namedtuple("Tally", ["c", "a", "p"])
+Tally = namedtuple("Tally", ["completed", "all", "percent"])
 CovTally = namedtuple("CovTally", ["result", "breakdown"])
 
 def index(dir):
@@ -118,7 +118,20 @@ def cov_tasks(states):
                 if task["state"] == 64:
                     yield id, task["task_spec"]
 
-def do_cov(specs, states):
+def tally(cov):
+    completed = 0
+    all = 0
+    breakdown = {}
+    for id in cov.all:
+        c = len(cov.completed[id])
+        a = len(cov.all[id])
+        breakdown[id] = Tally(c, a, c / a * 100)
+        completed += c
+        all += a
+    result = Tally(completed, all, completed / all * 100)
+    return CovTally(result, breakdown)
+
+def task_coverage(specs, states):
     all = {}
     completed = {}
     missing = {}
@@ -132,21 +145,9 @@ def do_cov(specs, states):
         spec = json.loads(spec)["spec"]
         all[id] = set([t for t in spec["task_specs"]])
         missing[id] = all[id] - completed[id]
-    
-    return TestCov(all, completed, missing)
 
-def tally(cov):
-    completed = 0
-    all = 0
-    breakdown = {}
-    for id in cov.all:
-        c = len(cov.completed[id])
-        a = len(cov.all[id])
-        breakdown[id] = Tally(c, a, c / a * 100)
-        completed += c
-        all += a
-    result = Tally(completed, all, completed / all * 100)
-    return CovTally(result, breakdown)
+    cov = TestCov(all, completed, missing)
+    return cov, tally(cov) 
 
 ###
 
@@ -167,10 +168,10 @@ if __name__ == "__main__":
 
     print("Unit Test Task Coverage:\n")
     
-    cov = tally(do_cov(ctx.specs, [t.state for t in test_cases]))
+    cov, tally = task_coverage(ctx.specs, [t.state for t in test_cases])
     for id, f in ctx.files:
-        [c, a, p] = cov.breakdown[id]
-        print(f"{f} - {c}/{a} - {p:.2f}%")
+        [completed, all, percent] = tally.breakdown[id]
+        print(f"{f} - {completed}/{all} - {percent:.2f}%")
     
-    [c, a, p] = cov.result
-    print(f"\nTotal - {c}/{a} - {p:.2f}%")
+    [completed, all, percent] = tally.result
+    print(f"\nTotal - {completed}/{all} - {percent:.2f}%")
