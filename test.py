@@ -106,12 +106,22 @@ def index(dir):
     ctx.tests.sort()
     return ctx
 
+def cov_tasks(state):
+    for _, sp in state["subprocesses"].items():
+        id = sp["spec"]
+        for _, task in sp["tasks"].items():
+            if task["state"] == 64:
+                yield id, task["task_spec"]
+    
+def do_cov(cov, state):
+    for id, task_id in cov_tasks(state):
+        print(f"{id} - {task_id}")
+    
 ###
 
 if __name__ == "__main__":
     ctx = index(".")
     test_cases = []
-    print(uuid.uuid4())
     for t in ctx.tests:
         test_cases.append(BpmnTestCase(t.file, t.specs, ctx.specs))
     suite = unittest.TestSuite()
@@ -120,5 +130,9 @@ if __name__ == "__main__":
     result = unittest.TextTestRunner(stream=stream).run(suite)    
     output = [t.output for t in test_cases if not t.wasSuccessful and t.output] + [stream.getvalue()]
     print(output[0])
+
+    cov = {}
+    for t in test_cases:
+        do_cov(cov, t.state)
     
     sys.exit(not result.wasSuccessful())
