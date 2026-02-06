@@ -1,9 +1,0 @@
-{
-    "admin": false,
-    "description": "Test cases used in various projects",
-    "display_name": "Test Cases",
-    "display_order": 0,
-    "parent_groups": null,
-    "process_groups": [],
-    "process_models": []
-}
