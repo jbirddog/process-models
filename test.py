@@ -149,11 +149,17 @@ if __name__ == "__main__":
     if not result.wasSuccessful():
         sys.exit(1)
 
-    print("Task Coverage:\n")
+    print("Unit Test Task Coverage:\n")
     
     cov = do_cov(ctx.specs, [t.state for t in test_cases])
+    all = 0
+    completed = 0
     for id, f in ctx.files:
-        completed = len(cov["completed"][id])
-        all = len(cov["all"][id])
-        print(f'{f} - {completed}/{all} - {completed/all * 100}%')
+        c = len(cov["completed"][id])
+        a = len(cov["all"][id])
+        completed += c
+        all += a
+        print(f"{f} - {c}/{a} - {(c/a * 100):.2f}%")
+    
+    print(f"\nTotal - {completed}/{all} - {(completed/all * 100):.2f}%")
 
