@@ -117,6 +117,7 @@ def cov_tasks(states):
 def do_cov(specs, states):
     all = {}
     completed = {}
+    missing = {}
     for id, task_id in cov_tasks(states):
         if id not in completed:
             completed[id] = set()
@@ -124,8 +125,9 @@ def do_cov(specs, states):
     for id, spec in specs.items():
         spec = json.loads(spec)["spec"]
         all[id] = set([t for t in spec["task_specs"]])
+        missing[id] = all[id] - completed.get(id, set())
     
-    return { "all": all, "completed": completed }
+    return { "all": all, "completed": completed, "missing": missing }
     
 ###
 
@@ -142,5 +144,6 @@ if __name__ == "__main__":
     print(output[0])
 
     cov = do_cov(ctx.specs, [t.state for t in test_cases])
+    print(cov["missing"])
     
     sys.exit(not result.wasSuccessful())
