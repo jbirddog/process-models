@@ -124,9 +124,11 @@ def do_cov(specs, states):
             completed[id] = set()
         completed[id].add(task_id)
     for id, spec in specs.items():
+        if id not in completed:
+            completed[id] = set()
         spec = json.loads(spec)["spec"]
         all[id] = set([t for t in spec["task_specs"]])
-        missing[id] = all[id] - completed.get(id, set())
+        missing[id] = all[id] - completed[id]
     
     return { "all": all, "completed": completed, "missing": missing }
     
@@ -151,6 +153,7 @@ if __name__ == "__main__":
     
     cov = do_cov(ctx.specs, [t.state for t in test_cases])
     for id, f in ctx.files:
-        completed = cov["completed"].get(id, set())
-        print(f'{f} - {len(completed)}/{len(cov["all"][id])}')
+        completed = len(cov["completed"][id])
+        all = len(cov["all"][id])
+        print(f'{f} - {completed}/{all} - {completed/all * 100}%')
 
