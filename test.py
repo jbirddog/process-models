@@ -89,6 +89,9 @@ def slurp(file):
 
 Test = namedtuple("Test", ["file", "specs"])
 TestCtx = namedtuple("TestCtx", ["files", "specs", "tests"])
+TestCov = namedtuple("TestCov", ["all", "completed", "missing"])
+Tally = namedtuple("Tally", ["completed", "all", "percent"])
+CovTally = namedtuple("CovTally", ["result", "breakdown"])
 
 def index(dir):
     ctx = TestCtx([], {}, [])
@@ -114,8 +117,21 @@ def cov_tasks(states):
             for _, task in sp["tasks"].items():
                 if task["state"] == 64:
                     yield id, task["task_spec"]
-    
-def do_cov(specs, states):
+
+def tally(cov):
+    completed = 0
+    all = 0
+    breakdown = {}
+    for id in cov.all:
+        c = len(cov.completed[id])
+        a = len(cov.all[id])
+        breakdown[id] = Tally(c, a, c / a * 100)
+        completed += c
+        all += a
+    result = Tally(completed, all, completed / all * 100)
+    return CovTally(result, breakdown)
+
+def task_coverage(specs, states):
     all = {}
     completed = {}
     missing = {}
@@ -129,9 +145,10 @@ def do_cov(specs, states):
         spec = json.loads(spec)["spec"]
         all[id] = set([t for t in spec["task_specs"]])
         missing[id] = all[id] - completed[id]
-    
-    return { "all": all, "completed": completed, "missing": missing }
-    
+
+    cov = TestCov(all, completed, missing)
+    return cov, tally(cov) 
+
 ###
 
 if __name__ == "__main__":
@@ -151,15 +168,13 @@ if __name__ == "__main__":
 
     print("Unit Test Task Coverage:\n")
     
-    cov = do_cov(ctx.specs, [t.state for t in test_cases])
-    all = 0
-    completed = 0
+    cov, tally = task_coverage(ctx.specs, [t.state for t in test_cases])
     for id, f in ctx.files:
-        c = len(cov["completed"][id])
-        a = len(cov["all"][id])
-        completed += c
-        all += a
-        print(f"{f} - {c}/{a} - {(c/a * 100):.2f}%")
+        [completed, all, percent] = tally.breakdown[id]
+        print(f"{f} - {completed}/{all} - {percent:.2f}%")
     
-    print(f"\nTotal - {completed}/{all} - {(completed/all * 100):.2f}%")
+    [completed, all, percent] = tally.result
+    print(f"\nTotal - {completed}/{all} - {percent:.2f}%")
 
+    if percent < 10.0:
+        sys.exit(1)
