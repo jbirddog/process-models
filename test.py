@@ -110,14 +110,15 @@ def index(dir):
 
 if __name__ == "__main__":
     ctx = index(".")
-    tests = []
+    test_cases = []
     print(uuid.uuid4())
     for t in ctx.tests:
-        tests.append(BpmnTestCase(t.file, t.specs, ctx.specs))
+        test_cases.append(BpmnTestCase(t.file, t.specs, ctx.specs))
     suite = unittest.TestSuite()
-    suite.addTests(tests)
+    suite.addTests(test_cases)
     stream = io.StringIO() 
     result = unittest.TextTestRunner(stream=stream).run(suite)    
-    output = [t.output for t in tests if not t.wasSuccessful and t.output] + [stream.getvalue()]
+    output = [t.output for t in test_cases if not t.wasSuccessful and t.output] + [stream.getvalue()]
     print(output[0])
+    
     sys.exit(not result.wasSuccessful())
