@@ -89,10 +89,19 @@ class BpmnTestCase(unittest.TestCase):
 
 ###
 
-def index():
-    for root, dirs, files in os.walk(".", topdown=True):
+def files_to_parse(dir):
+    for root, dirs, files in os.walk(dir, topdown=True):
         dirs[:] = [d for d in dirs if not d.startswith(".")]
-        print(files)
+        yield from [os.path.join(root, f) for f in files if f.endswith(".bpmn")] # TODO: dmn
+
+def index():
+    ctx = {}
+    for file in files_to_parse("."):
+        print(file)
+        specs, err = specs_from_xml([(file, slurp(file))])
+        assert not err
+        ctx[file] = specs
+    return ctx
 
 ###
         
