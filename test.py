@@ -13,7 +13,6 @@ import json
 import os
 import sys
 import unittest
-import uuid
 
 from collections import namedtuple
 
