@@ -13,6 +13,7 @@ import json
 import os
 import sys
 import unittest
+import uuid
 
 from collections import namedtuple
 
@@ -99,14 +100,18 @@ def index(dir):
             ctx.tests.append(Test(file, specs))
         else:
             d = json.loads(specs)
-            ctx.specs[d["spec"]["name"]] = specs
+            id = d["spec"]["name"]
+            assert id not in ctx.specs
+            ctx.specs[id] = specs
+    ctx.tests.sort()
     return ctx
 
 ###
-        
+
 if __name__ == "__main__":
     ctx = index(".")
     tests = []
+    print(uuid.uuid4())
     for t in ctx.tests:
         tests.append(BpmnTestCase(t.file, t.specs, ctx.specs))
     suite = unittest.TestSuite()
