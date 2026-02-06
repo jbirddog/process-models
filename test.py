@@ -90,6 +90,8 @@ def slurp(file):
 Test = namedtuple("Test", ["file", "specs"])
 TestCtx = namedtuple("TestCtx", ["files", "specs", "tests"])
 TestCov = namedtuple("TestCov", ["all", "completed", "missing"])
+Tally = namedtuple("Tally", ["c", "a", "p"])
+CovTally = namedtuple("CovTally", ["result", "breakdown"])
 
 def index(dir):
     ctx = TestCtx([], {}, [])
@@ -132,7 +134,20 @@ def do_cov(specs, states):
         missing[id] = all[id] - completed[id]
     
     return TestCov(all, completed, missing)
-    
+
+def tally(cov):
+    completed = 0
+    all = 0
+    breakdown = {}
+    for id in cov.all:
+        c = len(cov.completed[id])
+        a = len(cov.all[id])
+        breakdown[id] = Tally(c, a, c / a * 100)
+        completed += c
+        all += a
+    result = Tally(completed, all, completed / all * 100)
+    return CovTally(result, breakdown)
+
 ###
 
 if __name__ == "__main__":
@@ -152,14 +167,10 @@ if __name__ == "__main__":
 
     print("Unit Test Task Coverage:\n")
     
-    cov = do_cov(ctx.specs, [t.state for t in test_cases])
-    all = 0
-    completed = 0
+    cov = tally(do_cov(ctx.specs, [t.state for t in test_cases]))
     for id, f in ctx.files:
-        c = len(cov.completed[id])
-        a = len(cov.all[id])
-        completed += c
-        all += a
-        print(f"{f} - {c}/{a} - {(c/a * 100):.2f}%")
+        [c, a, p] = cov.breakdown[id]
+        print(f"{f} - {c}/{a} - {p:.2f}%")
     
-    print(f"\nTotal - {completed}/{all} - {(completed/all * 100):.2f}%")
+    [c, a, p] = cov.result
+    print(f"\nTotal - {c}/{a} - {p:.2f}%")
