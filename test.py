@@ -8,60 +8,10 @@
 # ]
 # ///
 
-import json
 import sys
-import unittest
 
-from collections import namedtuple
-
+from spiff_arena_common.coverage import task_coverage
 from spiff_arena_common.tester import run_tests_in_dir
-
-###
-
-TestCov = namedtuple("TestCov", ["all", "completed", "missing"])
-Tally = namedtuple("Tally", ["completed", "all", "percent"])
-CovTally = namedtuple("CovTally", ["result", "breakdown"])
-
-def cov_tasks(states):
-    for state in states:
-        for _, sp in state["subprocesses"].items():
-            id = sp["spec"]
-            for _, task in sp["tasks"].items():
-                if task["state"] == 64:
-                    yield id, task["task_spec"]
-
-def tally(cov):
-    completed = 0
-    all = 0
-    breakdown = {}
-    for id in cov.all:
-        c = len(cov.completed[id])
-        a = len(cov.all[id])
-        breakdown[id] = Tally(c, a, c / a * 100)
-        completed += c
-        all += a
-    result = Tally(completed, all, completed / all * 100)
-    return CovTally(result, breakdown)
-
-def task_coverage(specs, states):
-    all = {}
-    completed = {}
-    missing = {}
-    for id, task_id in cov_tasks(states):
-        if id not in completed:
-            completed[id] = set()
-        completed[id].add(task_id)
-    for id, spec in specs.items():
-        if id not in completed:
-            completed[id] = set()
-        spec = json.loads(spec)["spec"]
-        all[id] = set([t for t in spec["task_specs"]])
-        missing[id] = all[id] - completed[id]
-
-    cov = TestCov(all, completed, missing)
-    return cov, tally(cov) 
-
-###
 
 if __name__ == "__main__":
     [ctx, result, output] = run_tests_in_dir(".")
@@ -73,7 +23,7 @@ if __name__ == "__main__":
 
     print("Unit Test Task Coverage:\n")
     
-    cov, tally = task_coverage(ctx.specs, [t.state for t in ctx.test_cases])
+    cov, tally = task_coverage(ctx)
     for id, f in ctx.files:
         [completed, all, percent] = tally.breakdown[id]
         print(f"{f} - {completed}/{all} - {percent:.2f}%")
