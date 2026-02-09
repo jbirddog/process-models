@@ -3,7 +3,7 @@
 # dependencies = [
 #     "jinja2>=3.1.6",
 #     "jsonschema>=4.26.0",
-#     "spiff-arena-common @/home/jon/dev/spiff-arena/dist/spiff_arena_common-0.1.8-py3-none-any.whl",
+#     "spiff-arena-common==0.1.8",
 #     "spiffworkflow==3.1.2",
 # ]
 # ///
