@@ -8,14 +8,13 @@
 # ]
 # ///
 
-import io
 import json
 import sys
 import unittest
 
 from collections import namedtuple
 
-from spiff_arena_common.tester import BpmnTestCase, index
+from spiff_arena_common.tester import runTestsInDir
 
 ###
 
@@ -65,15 +64,8 @@ def task_coverage(specs, states):
 ###
 
 if __name__ == "__main__":
-    ctx = index(".")
-    test_cases = []
-    for t in ctx.tests:
-        test_cases.append(BpmnTestCase(t.file, t.specs, ctx.specs))
-    suite = unittest.TestSuite()
-    suite.addTests(test_cases)
-    stream = io.StringIO() 
-    result = unittest.TextTestRunner(stream=stream).run(suite)    
-    output = [t.output for t in test_cases if not t.wasSuccessful and t.output] + [stream.getvalue()]
+    [ctx, result, output] = runTestsInDir(".")
+    output = [t.output for t in ctx.test_cases if not t.wasSuccessful and t.output] + [output]
     print(output[0])
 
     if not result.wasSuccessful():
@@ -81,7 +73,7 @@ if __name__ == "__main__":
 
     print("Unit Test Task Coverage:\n")
     
-    cov, tally = task_coverage(ctx.specs, [t.state for t in test_cases])
+    cov, tally = task_coverage(ctx.specs, [t.state for t in ctx.test_cases])
     for id, f in ctx.files:
         [completed, all, percent] = tally.breakdown[id]
         print(f"{f} - {completed}/{all} - {percent:.2f}%")
@@ -89,5 +81,5 @@ if __name__ == "__main__":
     [completed, all, percent] = tally.result
     print(f"\nTotal - {completed}/{all} - {percent:.2f}%")
 
-    if percent < 10.0:
+    if percent < 20.0:
         sys.exit(1)
