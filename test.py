@@ -14,7 +14,7 @@ import unittest
 
 from collections import namedtuple
 
-from spiff_arena_common.tester import runTestsInDir
+from spiff_arena_common.tester import run_tests_in_dir
 
 ###
 
@@ -64,7 +64,7 @@ def task_coverage(specs, states):
 ###
 
 if __name__ == "__main__":
-    [ctx, result, output] = runTestsInDir(".")
+    [ctx, result, output] = run_tests_in_dir(".")
     output = [t.output for t in ctx.test_cases if not t.wasSuccessful and t.output] + [output]
     print(output[0])
 
