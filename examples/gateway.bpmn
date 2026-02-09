@@ -28,7 +28,6 @@
     <bpmn:manualTask id="Activity_0lvogdb">
       <bpmn:extensionElements>
         <spiffworkflow:instructionsForEndUser>This should not have run.</spiffworkflow:instructionsForEndUser>
-        <spiffworkflow:preScript />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_188lqer</bpmn:incoming>
       <bpmn:outgoing>Flow_1oml9os</bpmn:outgoing>
@@ -47,6 +46,9 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="simple_gateway">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="-268" y="-18" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1h9h8qo_di" bpmnElement="Gateway_1h9h8qo" isMarkerVisible="true">
         <dc:Bounds x="-65" y="-25" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -64,9 +66,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1ljirh7_di" bpmnElement="Activity_0myxqrc">
         <dc:Bounds x="-200" y="-40" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="-268" y="-18" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0bpd7l8_di" bpmnElement="Flow_0bpd7l8">
         <di:waypoint x="-232" y="0" />
