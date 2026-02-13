@@ -37,7 +37,7 @@ def test():
 
   class TestTaskData(unittest.TestCase):
     def runTest(self):
-      self.assertEqual(post_script_var, 2)
+      self.assertEqual(post_script_var, 22)
       
   return runTests([TestTaskData()])
   
