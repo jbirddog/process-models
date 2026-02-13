@@ -72,7 +72,7 @@ spiff_testResult = test()</bpmn:script>
       <bpmn:outgoing>Flow_0glzdyc</bpmn:outgoing>
       <bpmn:script>spiff_testFixture = {
   "pendingTaskStack": [
-    { "id": "Activity_1n7p3m4", "data": {} },
+    #{ "id": "Activity_1n7p3m4", "data": {} },
     { "id": "Activity_1h7gm30", "data": {} },
   ]
 }</bpmn:script>
