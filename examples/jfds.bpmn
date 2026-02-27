@@ -27,9 +27,8 @@
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1he6cu4">
         <bpmn:targetRef>DataStoreReference_0wm2yyl</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
-      <bpmn:script>x = x + 1
-jsonfiledatastore = {
-  "x": x
+      <bpmn:script>jsonfiledatastore = {
+  "x": x + 1
 }</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:dataStoreReference id="DataStoreReference_0wm2yyl" name="jsonfiledatastore" dataStoreRef="jsonfiledatastore" type="jsonfile" />

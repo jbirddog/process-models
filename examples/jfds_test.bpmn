@@ -33,6 +33,11 @@
     <bpmn:scriptTask id="Activity_09o85mv" name="Test Result">
       <bpmn:incoming>Flow2_1772201981365</bpmn:incoming>
       <bpmn:outgoing>Flow_0k2tuld</bpmn:outgoing>
+      <bpmn:property id="Property_1taen79" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_10x0cif">
+        <bpmn:sourceRef>DataStoreReference_199b8wr</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1taen79</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
       <bpmn:script>def runTests(tests):
   import io
   import unittest
@@ -53,13 +58,16 @@ def test():
 
   class TestTaskData(unittest.TestCase):
     def runTest(self):
-      self.assertEqual(x, spiff_testFixture["expected"]["x"])
+      x = jsonfiledatastore["x"]
+      expected = spiff_testFixture["expected"]["x"]
+      self.assertEqual(x, expected)
       
   return runTests([TestTaskData()])
   
 spiff_testResult = test()</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:dataStoreReference id="DataStoreReference_0xnrv41" name="jsonfiledatastore" dataStoreRef="jsonfiledatastore" type="jsonfile" />
+    <bpmn:dataStoreReference id="DataStoreReference_199b8wr" name="jsonfiledatastore" dataStoreRef="jsonfiledatastore" type="jsonfile" />
   </bpmn:process>
   <bpmn:dataStore id="jsonfiledatastore" name="JSONFileDataStore" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -88,6 +96,12 @@ spiff_testResult = test()</bpmn:script>
           <dc:Bounds x="128" y="312" width="85" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_199b8wr_di" bpmnElement="DataStoreReference_199b8wr">
+        <dc:Bounds x="415" y="255" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="398" y="312" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow1_1772201981365_di" bpmnElement="Flow1_1772201981365">
         <di:waypoint x="88" y="160" />
         <di:waypoint x="120" y="160" />
@@ -107,6 +121,10 @@ spiff_testResult = test()</bpmn:script>
       <bpmndi:BPMNEdge id="Flow_0k2tuld_di" bpmnElement="Flow_0k2tuld">
         <di:waypoint x="490" y="160" />
         <di:waypoint x="592" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_10x0cif_di" bpmnElement="DataInputAssociation_10x0cif">
+        <di:waypoint x="440" y="255" />
+        <di:waypoint x="440" y="200" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
