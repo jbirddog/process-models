@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="Process_1772201981365" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1772201981365">
+      <bpmn:outgoing>Flow1_1772201981365</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1772201981365">
+      <bpmn:incoming>Flow_0k2tuld</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow1_1772201981365" sourceRef="StartEvent_1772201981365" targetRef="Activity_0242tcp" />
+    <bpmn:sequenceFlow id="Flow2_1772201981365" sourceRef="Task_1772201981365" targetRef="Activity_09o85mv" />
+    <bpmn:callActivity id="Task_1772201981365" name="Run jfds" calledElement="Process_1772027573278">
+      <bpmn:incoming>Flow_1cyzbm9</bpmn:incoming>
+      <bpmn:outgoing>Flow2_1772201981365</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_1cyzbm9" sourceRef="Activity_0242tcp" targetRef="Task_1772201981365" />
+    <bpmn:scriptTask id="Activity_0242tcp" name="Load Test Fixture">
+      <bpmn:incoming>Flow1_1772201981365</bpmn:incoming>
+      <bpmn:outgoing>Flow_1cyzbm9</bpmn:outgoing>
+      <bpmn:property id="Property_0r4ysh6" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_086krdz">
+        <bpmn:sourceRef>DataStoreReference_0xnrv41</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0r4ysh6</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:script>spiff_testFixture = {
+  "pendingTaskStack": [],
+  "expected": {
+    "x": jsonfiledatastore["x"] + 1,
+  }
+}</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0k2tuld" sourceRef="Activity_09o85mv" targetRef="EndEvent_1772201981365" />
+    <bpmn:scriptTask id="Activity_09o85mv" name="Test Result">
+      <bpmn:incoming>Flow2_1772201981365</bpmn:incoming>
+      <bpmn:outgoing>Flow_0k2tuld</bpmn:outgoing>
+      <bpmn:property id="Property_1taen79" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_10x0cif">
+        <bpmn:sourceRef>DataStoreReference_199b8wr</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1taen79</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:script>def runTests(tests):
+  import io
+  import unittest
+
+  suite = unittest.TestSuite()
+  suite.addTests(tests)
+  stream = io.StringIO()
+  result = unittest.TextTestRunner(stream=stream).run(suite)
+  
+  return {
+    "testsRun": result.testsRun,
+    "wasSuccessful": result.wasSuccessful(),
+    "output": stream.getvalue(),
+  }
+
+def test():
+  import unittest
+
+  class TestTaskData(unittest.TestCase):
+    def runTest(self):
+      x = jsonfiledatastore["x"]
+      expected = spiff_testFixture["expected"]["x"]
+      self.assertEqual(x, expected)
+      
+  return runTests([TestTaskData()])
+  
+spiff_testResult = test()</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:dataStoreReference id="DataStoreReference_0xnrv41" name="jsonfiledatastore" dataStoreRef="jsonfiledatastore" type="jsonfile" />
+    <bpmn:dataStoreReference id="DataStoreReference_199b8wr" name="jsonfiledatastore" dataStoreRef="jsonfiledatastore" type="jsonfile" />
+  </bpmn:process>
+  <bpmn:dataStore id="jsonfiledatastore" name="JSONFileDataStore" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1772201981365">
+      <bpmndi:BPMNShape id="StartEvent_1772201981365_di" bpmnElement="StartEvent_1772201981365">
+        <dc:Bounds x="52" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1772201981365_di" bpmnElement="EndEvent_1772201981365">
+        <dc:Bounds x="592" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0onpyfp_di" bpmnElement="Task_1772201981365">
+        <dc:Bounds x="260" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bv5gzd_di" bpmnElement="Activity_0242tcp">
+        <dc:Bounds x="120" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ffbitn_di" bpmnElement="Activity_09o85mv">
+        <dc:Bounds x="390" y="120" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0xnrv41_di" bpmnElement="DataStoreReference_0xnrv41">
+        <dc:Bounds x="145" y="255" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="128" y="312" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_199b8wr_di" bpmnElement="DataStoreReference_199b8wr">
+        <dc:Bounds x="415" y="255" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="398" y="312" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow1_1772201981365_di" bpmnElement="Flow1_1772201981365">
+        <di:waypoint x="88" y="160" />
+        <di:waypoint x="120" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow2_1772201981365_di" bpmnElement="Flow2_1772201981365">
+        <di:waypoint x="360" y="160" />
+        <di:waypoint x="390" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1cyzbm9_di" bpmnElement="Flow_1cyzbm9">
+        <di:waypoint x="220" y="160" />
+        <di:waypoint x="260" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_086krdz_di" bpmnElement="DataInputAssociation_086krdz">
+        <di:waypoint x="170" y="255" />
+        <di:waypoint x="170" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0k2tuld_di" bpmnElement="Flow_0k2tuld">
+        <di:waypoint x="490" y="160" />
+        <di:waypoint x="592" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_10x0cif_di" bpmnElement="DataInputAssociation_10x0cif">
+        <di:waypoint x="440" y="255" />
+        <di:waypoint x="440" y="200" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
