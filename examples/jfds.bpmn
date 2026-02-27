@@ -27,8 +27,9 @@
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1he6cu4">
         <bpmn:targetRef>DataStoreReference_0wm2yyl</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
-      <bpmn:script>jsonfiledatastore = {
-  "x": x + 1
+      <bpmn:script>x = x + 1
+jsonfiledatastore = {
+  "x": x
 }</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:dataStoreReference id="DataStoreReference_0wm2yyl" name="jsonfiledatastore" dataStoreRef="jsonfiledatastore" type="jsonfile" />
@@ -38,6 +39,9 @@
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1772027573278">
       <bpmndi:BPMNShape id="StartEvent_1772027573278_di" bpmnElement="StartEvent_1772027573278">
         <dc:Bounds x="182" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1772027573278_di" bpmnElement="EndEvent_1772027573278">
+        <dc:Bounds x="582" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0nnityz_di" bpmnElement="Task_1772027573278">
         <dc:Bounds x="260" y="120" width="100" height="80" />
@@ -56,9 +60,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="418" y="332" width="85" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_1772027573278_di" bpmnElement="EndEvent_1772027573278">
-        <dc:Bounds x="582" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow1_1772027573278_di" bpmnElement="Flow1_1772027573278">
         <di:waypoint x="218" y="160" />
