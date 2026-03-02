@@ -17,29 +17,17 @@
     <bpmn:scriptTask id="Activity_1ifkyxd" name="Test Results">
       <bpmn:incoming>Flow2_1770121675349</bpmn:incoming>
       <bpmn:outgoing>Flow_0g7mzwp</bpmn:outgoing>
-      <bpmn:script>def runTests(tests):
-  import io
-  import unittest
-
-  suite = unittest.TestSuite()
-  suite.addTests(tests)
-  stream = io.StringIO()
-  result = unittest.TextTestRunner(stream=stream).run(suite)
-  
-  return {
-    "testsRun": result.testsRun,
-    "wasSuccessful": result.wasSuccessful(),
-    "output": stream.getvalue(),
-  }
-
+      <bpmn:script>
 def test():
   import unittest
+
+  from spiff_arena_common.tester import run_test_cases
 
   class TestTaskData(unittest.TestCase):
     def runTest(self):
       self.assertEqual(post_script_var, 2)
       
-  return runTests([TestTaskData()])
+  return run_test_cases([TestTaskData()])
   
 spiff_testResult = test()</bpmn:script>
     </bpmn:scriptTask>

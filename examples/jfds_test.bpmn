@@ -38,23 +38,11 @@
         <bpmn:sourceRef>DataStoreReference_199b8wr</bpmn:sourceRef>
         <bpmn:targetRef>Property_1taen79</bpmn:targetRef>
       </bpmn:dataInputAssociation>
-      <bpmn:script>def runTests(tests):
-  import io
-  import unittest
-
-  suite = unittest.TestSuite()
-  suite.addTests(tests)
-  stream = io.StringIO()
-  result = unittest.TextTestRunner(stream=stream).run(suite)
-  
-  return {
-    "testsRun": result.testsRun,
-    "wasSuccessful": result.wasSuccessful(),
-    "output": stream.getvalue(),
-  }
-
+      <bpmn:script>
 def test():
   import unittest
+
+  from spiff_arena_common.tester import run_test_cases
 
   class TestTaskData(unittest.TestCase):
     def runTest(self):
@@ -62,7 +50,7 @@ def test():
       expected = spiff_testFixture["expected"]["x"]
       self.assertEqual(x, expected)
       
-  return runTests([TestTaskData()])
+  return run_test_cases([TestTaskData()])
   
 spiff_testResult = test()</bpmn:script>
     </bpmn:scriptTask>
