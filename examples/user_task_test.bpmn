@@ -58,6 +58,11 @@ spiff_testResult = test()</bpmn:script>
     <bpmn:scriptTask id="Activity_0d27dhn" name="Load Test Fixture">
       <bpmn:incoming>Flow1_1770132558798</bpmn:incoming>
       <bpmn:outgoing>Flow_1fbs4ll</bpmn:outgoing>
+      <bpmn:property id="Property_1dsm2yn" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0p1gofe">
+        <bpmn:sourceRef>DataStoreReference_1h48ew8</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1dsm2yn</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
       <bpmn:script>spiff_testFixture = {
   "pendingTaskStack": [
     { "id": "ut_task", "data": { "some_field": "jj" } },
@@ -67,7 +72,10 @@ spiff_testResult = test()</bpmn:script>
   }
 }</bpmn:script>
     </bpmn:scriptTask>
+    <bpmn:dataStoreReference id="DataStoreReference_1h48ew8" name="user_task.bpmn.recording" dataStoreRef="user_task.bpmn.recording" type="jsonfile" />
   </bpmn:process>
+  <bpmn:dataStore id="jsonfiledatastore" name="JSONFileDataStore" />
+  <bpmn:dataStore id="user_task.bpmn.recording" name="JSONFileDataStore" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1770132558798">
       <bpmndi:BPMNShape id="StartEvent_1770132558798_di" bpmnElement="StartEvent_1770132558798">
@@ -97,6 +105,12 @@ spiff_testResult = test()</bpmn:script>
       <bpmndi:BPMNShape id="Activity_0l1t70p_di" bpmnElement="Activity_0d27dhn">
         <dc:Bounds x="120" y="120" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1h48ew8_di" bpmnElement="DataStoreReference_1h48ew8">
+        <dc:Bounds x="145" y="275" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="127" y="332" width="88" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow1_1770132558798_di" bpmnElement="Flow1_1770132558798">
         <di:waypoint x="68" y="160" />
@@ -131,6 +145,10 @@ spiff_testResult = test()</bpmn:script>
       <bpmndi:BPMNEdge id="Flow_1fbs4ll_di" bpmnElement="Flow_1fbs4ll">
         <di:waypoint x="220" y="160" />
         <di:waypoint x="260" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0p1gofe_di" bpmnElement="DataInputAssociation_0p1gofe">
+        <di:waypoint x="170" y="275" />
+        <di:waypoint x="170" y="200" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
