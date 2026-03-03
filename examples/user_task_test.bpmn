@@ -64,9 +64,7 @@ spiff_testResult = test()</bpmn:script>
         <bpmn:targetRef>Property_1dsm2yn</bpmn:targetRef>
       </bpmn:dataInputAssociation>
       <bpmn:script>spiff_testFixture = {
-  "pendingTaskStack": [
-    { "id": "ut_task", "data": { "some_field": "jj" } },
-  ],
+  "pendingTaskStack": user_task_recording["pendingTaskStack"],
   "expected": {
     "some_field": "jj",
   }
