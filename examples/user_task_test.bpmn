@@ -72,10 +72,11 @@ spiff_testResult = test()</bpmn:script>
   }
 }</bpmn:script>
     </bpmn:scriptTask>
-    <bpmn:dataStoreReference id="DataStoreReference_1h48ew8" name="user_task.bpmn.recording" dataStoreRef="user_task.bpmn.recording" type="jsonfile" />
+    <bpmn:dataStoreReference id="DataStoreReference_1h48ew8" name="user_task_recording" dataStoreRef="user_task_recording" type="jsonfile" />
   </bpmn:process>
   <bpmn:dataStore id="jsonfiledatastore" name="JSONFileDataStore" />
   <bpmn:dataStore id="user_task.bpmn.recording" name="JSONFileDataStore" />
+  <bpmn:dataStore id="user_task_recording" name="JSONFileDataStore" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1770132558798">
       <bpmndi:BPMNShape id="StartEvent_1770132558798_di" bpmnElement="StartEvent_1770132558798">
@@ -109,7 +110,7 @@ spiff_testResult = test()</bpmn:script>
       <bpmndi:BPMNShape id="DataStoreReference_1h48ew8_di" bpmnElement="DataStoreReference_1h48ew8">
         <dc:Bounds x="145" y="275" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="127" y="332" width="88" height="27" />
+          <dc:Bounds x="128" y="332" width="87" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow1_1770132558798_di" bpmnElement="Flow1_1770132558798">
